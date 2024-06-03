@@ -109,7 +109,7 @@ struct FrontBigCardView: View {
                 return
             }
             
-            let mustTryActivity = ActivityRoot(id: UUID(), activity: swiftActivity(name: activityCards.name))
+        let mustTryActivity = ActivityRoot(id: UUID(), activity: swiftActivity(from: activityCards))
             
             user.mustTrys.append(mustTryActivity)
 //        user.mustTrys.insert(contentsOf: mustTryActivity, at: )

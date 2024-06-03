@@ -15,7 +15,6 @@ import SwiftData
 struct DreamTeamApp: App {
     var body: some Scene {
         WindowGroup {
-//            ContentView()
             SplashScreenView()
         }
         .modelContainer(

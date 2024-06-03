@@ -59,17 +59,6 @@ struct DiscoverView: View {
                             Text("Loading suggestions...")
                                 .foregroundStyle(.white)
                         }
-//                        Text("Failed to load activities")
-//                            .foregroundStyle(.white)
-//                            .padding()
-//                            .frame(maxWidth: geoProx.size.width/1.4, maxHeight: geoProx.size.height/1.4)
-//                            .background(.clear)
-//                            .clipShape(
-//                                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: .continuous)
-//                            )
-//                            .shadow(color: .white.opacity(0.2), radius: 10)
-//                            .offset(y:-geoProx.size.height/10)
-                        
                     } else {
                         ZStack {
                             ForEach((randomActivity.foundActivities.indices), id: \.self) { card in

@@ -11,16 +11,24 @@ import SwiftData
 @Model
 class ActivityRoot: Identifiable, Hashable {
     var id = UUID()
-    var activity: [swiftActivity]
-    
-    init(id: UUID = UUID(), activity: [swiftActivity] = []) {
+    var activity: swiftActivity
+//    var didGo : Bool = false
+    init(id: UUID = UUID(), activity: swiftActivity) {
         self.id = id
         self.activity = activity
+    }
+    
+    static func == (lhs: ActivityRoot, rhs: ActivityRoot) -> Bool {
+            return lhs.id == rhs.id
+        }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 
 @Model
-class swiftActivity {
+class swiftActivity: Identifiable {
     
     var id: String?
     var alias: String?
@@ -40,7 +48,8 @@ class swiftActivity {
     var distance: Double?
     var attributes: swiftAttributes?
     
-    init(id: String? = nil, alias: String? = nil, name: String? = nil, image_url: String? = nil, is_closed: Bool? = nil, url: String? = nil, review_count: Int? = nil, categories: [swiftCategory]? = nil, rating: Double? = nil, coordinates: swiftCoordinates? = nil, transactions: [String]? = nil, price: String? = nil, location: swiftLocation? = nil, phone: String? = nil, displayPhone: String? = nil, distance: Double? = nil, attributes: swiftAttributes? = nil) {
+    // Switched nil -> [] for categories: [swiftCategory]? = []
+    init(id: String? = nil, alias: String? = nil, name: String? = nil, image_url: String? = nil, is_closed: Bool? = nil, url: String? = nil, review_count: Int? = nil, categories: [swiftCategory]? = [], rating: Double? = nil, coordinates: swiftCoordinates? = nil, transactions: [String]? = nil, price: String? = nil, location: swiftLocation? = nil, phone: String? = nil, displayPhone: String? = nil, distance: Double? = nil, attributes: swiftAttributes? = nil) {
         self.id = id
         self.alias = alias
         self.name = name
@@ -59,6 +68,26 @@ class swiftActivity {
         self.distance = distance
         self.attributes = attributes
     }
+    
+    init(from activity: Activity) {
+            self.id = activity.id
+            self.alias = activity.alias
+            self.name = activity.name
+            self.image_url = activity.image_url
+            self.is_closed = activity.is_closed
+            self.url = activity.url
+            self.review_count = activity.review_count
+            self.categories = activity.categories?.map { swiftCategory(alias: $0.alias, title: $0.title) }
+            self.rating = activity.rating
+            self.coordinates = activity.coordinates.map { swiftCoordinates(latitude: $0.latitude, longitude: $0.longitude) }
+            self.transactions = activity.transactions
+            self.price = activity.price
+            self.location = activity.location.map { swiftLocation(address1: $0.address1, address2: $0.address2, address3: $0.address3, city: $0.city, zipCode: $0.zipCode, country: $0.country, state: $0.state, display_address: $0.display_address) }
+            self.phone = activity.phone
+            self.displayPhone = activity.displayPhone
+            self.distance = activity.distance
+            self.attributes = activity.attributes.map { swiftAttributes(businessTempClosed: $0.businessTempClosed, waitlistReservation: $0.waitlistReservation) }
+        }
 }
 
 @Model
@@ -125,3 +154,13 @@ class swiftRegion {
         self.center = center
     }
 }
+
+//@Model
+//class Products {
+//
+//    var productName:String = " ";
+//    init(productName: String) {
+//        self.productName = productName
+//    }
+//
+//}

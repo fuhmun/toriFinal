@@ -11,13 +11,13 @@ import CoreLocation
 import SDWebImageSwiftUI
 import SwiftData
 
-struct ActivityResponse: Decodable { // Protocols
+class ActivityResponse: Decodable { // Protocols
     var businesses: [Activity]?
     var total: Int?
     var region: Region?
 }
 
-struct Activity: Decodable, Hashable, Equatable {
+class Activity: Decodable, Hashable, Equatable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -46,17 +46,17 @@ struct Activity: Decodable, Hashable, Equatable {
     var attributes: Attributes?
 }
 
-struct Category: Decodable {
+class Category: Decodable {
     var alias: String?
     var title: String?
 }
 
-struct Coordinates: Decodable {
+class Coordinates: Decodable {
     var latitude: Double?
     var longitude: Double?
 }
 
-struct Location: Decodable {
+class Location: Decodable {
     var address1: String?
     var address2: String?
     var address3: String?
@@ -67,12 +67,12 @@ struct Location: Decodable {
     var display_address: [String]?
 }
 
-struct Attributes: Decodable {
+class Attributes: Decodable {
     var businessTempClosed: Bool?
     var waitlistReservation: Bool?
 }
 
-struct Region: Decodable {
+class Region: Decodable {
     var center: Coordinates?
 }
 
@@ -115,7 +115,6 @@ class YelpAPI : ObservableObject {
             URLQueryItem(name: "longitude", value: String(location.coordinate.longitude)),
             URLQueryItem(name: "categories" , value: cate),
             URLQueryItem(name: "limit" , value: String(lim)),
-//            URLQueryItem(name: "sort_by" , value: sort),
             URLQueryItem(name: "radius", value: String(rad))
         ]
         
@@ -125,7 +124,6 @@ class YelpAPI : ObservableObject {
         request.httpMethod = "GET"
         request.timeoutInterval = 10
         request.allHTTPHeaderFields = ["Authorization" : "Bearer \(apiKey)", "accept": "application/json"]
-        
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             

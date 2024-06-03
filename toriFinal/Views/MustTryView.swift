@@ -6,46 +6,86 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MustTryView: View {
+    
     @State private var selectedCardIndex: Int? = nil
-
-    @State private var mustTry = [
-        (name: "Activity A", description: "Delicious food A")
-    ]
+    
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
 
     var geoProx: GeometryProxy
     
+//    @State var mustTryCards: [ActivityRoot] = []
+    
     var body: some View {
         ZStack {
-            ForEach(0..<mustTry.count, id: \.self) { index in
-                SmallCardView(restaurantName: mustTry[index].name,
-                         description: mustTry[index].description,
-                              isExpanded: self.selectedCardIndex == index, geoProx: geoProx)
-                    .offset(y: self.selectedCardIndex == index ? 0 : CGFloat(index) * 60)
-                    .rotation3DEffect(
-                        .degrees(self.selectedCardIndex == index ? 180 : 0),
-                        axis: (x: 0, y: 2, z: 0)
-                    )
-                    .animation(.spring(), value: self.selectedCardIndex == index)
-                    .onTapGesture {
-                        withAnimation {
-                            if self.selectedCardIndex == index {
-                                self.selectedCardIndex = nil
-                            } else {
-                                self.selectedCardIndex = index
-                            }
-                        }
-                    }
-                    .zIndex(self.selectedCardIndex == index ? 1 : 0)
+            if let profile = userProfile.first, !profile.mustTrys.isEmpty {
+                ForEach(0..<profile.mustTrys.count, id: \.self) { index in
+                    createCardView(for: index)
+                }
+                .onDelete(perform: deleteActivity)
+            } else {
+                Spacer()
+                Text("None")
+                    .foregroundStyle(.white)
+                Spacer()
             }
         }
         .edgesIgnoringSafeArea(.all)
+//        .onAppear {
+//            updateMustTryCards()
+//        }
+//        .onChange(of: userProfile.first?.mustTrys) {
+//            updateMustTryCards()
+//        }
     }
+    
+    @ViewBuilder
+    func createCardView(for index: Int) -> some View {
+        if let profile = userProfile.first, index < profile.mustTrys.count {
+            SmallCardView(activities: profile.mustTrys[index], isExpanded: self.selectedCardIndex == index, geoProx: geoProx)
+                .offset(y: self.selectedCardIndex == index ? 0 : CGFloat(index) * 60)
+                .rotation3DEffect(
+                    .degrees(self.selectedCardIndex == index ? 180 : 0),
+                    axis: (x: 0, y: 2, z: 0)
+                )
+                .animation(.spring(), value: self.selectedCardIndex == index)
+                .onTapGesture {
+                    withAnimation {
+                        if self.selectedCardIndex == index {
+                            self.selectedCardIndex = nil
+                        } else {
+                            self.selectedCardIndex = index
+                        }
+                    }
+                }
+                .zIndex(self.selectedCardIndex == index ? 1 : 0)
+        }
+    }
+    
+    func deleteActivity(_ indexSet: IndexSet) {
+        guard let profile = userProfile.first  else { return }
+            
+        for index in indexSet {
+            let activity = profile.mustTrys[index]
+            modelContext.delete(activity)
+        }
+         
+        do {
+            try modelContext.save()
+        } catch {
+            print("Failed to save context: \(error)")
+        }
+    }
+    
+//    func updateMustTryCards() {
+//        mustTryCards = userProfile.first?.mustTrys ?? []
+//    }
 }
-
-
 
 //#Preview {
 //    MustTryView()
 //}
+

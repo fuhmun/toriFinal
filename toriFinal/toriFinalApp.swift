@@ -18,6 +18,20 @@ struct DreamTeamApp: App {
 //            ContentView()
             SplashScreenView()
         }
-        .modelContainer(for: [Profile.self,ActivityRoot.self,swiftActivity.self,swiftCategory.self,swiftCoordinates.self,swiftLocation.self,swiftAttributes.self,swiftRegion.self,YelpCategory.self,SubCategory.self,CategoryManager.self])
+        .modelContainer(
+            for: [
+                Profile.self,
+                ActivityRoot.self,
+                swiftActivity.self,
+                swiftCategory.self,
+                swiftCoordinates.self,
+                swiftLocation.self,
+                swiftAttributes.self,
+                swiftRegion.self,
+                YelpCategory.self,
+                SubCategory.self,
+                CategoryManager.self
+            ]
+        )
     }
 }

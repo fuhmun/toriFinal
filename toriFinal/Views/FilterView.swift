@@ -22,10 +22,10 @@ struct FilterView: View {
                     } label: {
                         VStack {
                             Image(systemName: category.icon)
-                                .foregroundStyle(isSelected ? .accent : .white)
                             Text(category.rawValue)
                                 .font(.caption)
                         }
+                        .foregroundStyle(isSelected ? .accent : .white)
                     }
                 }
             }

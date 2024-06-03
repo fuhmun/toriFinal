@@ -47,8 +47,27 @@ struct ContentView: View {
                     Label("Profile",systemImage:"person.fill")
                 }
         }
-//        .toolbarColorScheme(.light, for: .tabBar)
+        .onAppear {
+            Task {
+                initializeUserProfile()
+            }
+        }
     }
+    
+    private func initializeUserProfile() {
+            if userProfile.isEmpty {
+                let newUserProfile = Profile(id: UUID(), diet: .everything, priceLimit: 2, drinker: false, smoker: false, likes: [], dislikes: [], favorites: [], mustTrys: [], visited: [], neverAgain: [])
+                modelContext.insert(newUserProfile)
+                do {
+                    try modelContext.save()
+                    print("User profile created and saved.")
+                } catch {
+                    print("Failed to save the user profile: \(error)")
+                }
+            } else {
+                print("User profile already exists.")
+            }
+        }
 }
 
 #Preview {

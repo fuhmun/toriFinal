@@ -18,8 +18,10 @@ struct FrontBigCardView: View {
     var activityCards: Activity
     @ObservedObject var randomActivity: YelpAPI
     
-    @Environment(\.modelContext) var modelContextMus
-    @Query var mustTry: [ActivityRoot]
+    @State private var isFavorite: Bool = false
+    
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
     
     var body: some View {
         
@@ -50,11 +52,14 @@ struct FrontBigCardView: View {
                             .foregroundStyle(.white)
                             Spacer()
                             Button {
-                                
-//                                let mustTryActivity =
-                                
+                                isFavorite.toggle()
+                                if isFavorite {
+                                    addActivityToMustTrys()
+                                } else {
+                                    deleteActivityFromMustTry()
+                                }
                             } label: {
-                                Image(systemName: "heart")
+                                Image(systemName: isFavorite ? "heart.fill" : "heart")
                                     .foregroundStyle(.white)
                             }
                         }
@@ -90,10 +95,68 @@ struct FrontBigCardView: View {
                         .padding(geoProx.size.height/30)
                     }
                     ,alignment: .topLeading
-                    
-                    
                 )
+                .onAppear {
+                    checkIfFavorite()
+                }
         }
+    }
+    
+    func addActivityToMustTrys() {
+        
+            guard let user = userProfile.first else {
+                print("No user profile found")
+                return
+            }
+            
+            let mustTryActivity = ActivityRoot(id: UUID(), activity: swiftActivity(name: activityCards.name))
+            
+            user.mustTrys.append(mustTryActivity)
+//        user.mustTrys.insert(contentsOf: mustTryActivity, at: )
+            modelContext.insert(mustTryActivity)
+            
+            do {
+                try modelContext.save()
+                isFavorite = true
+                print("Activity added to mustTrys")
+            } catch {
+                print("Failed to save context: \(error)")
+            }
+        
+            if let profile = userProfile.first {
+                print("User profile mustTrys count: \(profile.mustTrys.count)")
+                for activity in profile.mustTrys {
+                    print("Activity name: \(activity.activity.name ?? "Unknown")")
+                }
+            }
+        }
+    
+    private func deleteActivityFromMustTry() {
+        guard let user = userProfile.first else { return }
+        
+        if let index = user.mustTrys.firstIndex(where: {$0.activity.name == activityCards.name}) {
+            let activityToRemove = user.mustTrys.remove(at: index)
+            modelContext.delete(activityToRemove)
+            
+            do {
+                try modelContext.save()
+                print("Activity removed from mustTrys")
+            } catch {
+                print("Failed to save context: \(error)")
+            }
+        }
+        
+        if let profile = userProfile.first {
+            print("User profile mustTrys count: \(profile.mustTrys.count)")
+            for activity in profile.mustTrys {
+                print("Activity name: \(activity.activity.name ?? "Unknown")")
+            }
+        }
+    }
+    
+    func checkIfFavorite() {
+        guard let profile = userProfile.first else { return }
+        isFavorite = profile.mustTrys.contains(where: {$0.activity.name == activityCards.name})
     }
 }
 

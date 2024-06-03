@@ -18,6 +18,9 @@ struct CardView: View {
     @ObservedObject var randomActivity: YelpAPI
     var activityList: RandomCategory
     
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
+    
     @State private var cardFlipped: Bool = false
     @State private var dragOffset: CGSize = CGSize.zero
     @State private var colorOverlay: Color = .white.opacity(0.2)

@@ -11,6 +11,8 @@ import SwiftData
 @Model
 class Profile: Identifiable {
     var id: UUID
+    var firstName: String
+    var lastName: String
     var diet: Dietary
     var priceLimit: Int
     var drinker: Bool
@@ -20,10 +22,12 @@ class Profile: Identifiable {
     var favorites: [ActivityRoot]
     var mustTrys: [ActivityRoot]
     var visited: [ActivityRoot]
-    var neverAgain: [String]
+    var likedCategories : CategoryManager
 
-    init(id: UUID = UUID(), diet: Dietary = .everything, priceLimit: Int = 2, drinker: Bool = false, smoker: Bool = false, likes: [ActivityRoot] = [], dislikes: [ActivityRoot] = [], favorites: [ActivityRoot] = [], mustTrys: [ActivityRoot] = [], visited: [ActivityRoot] = [], neverAgain: [String] = []) {
+    init(id: UUID = UUID(), firstName: String = "", lastName: String = "", diet: Dietary = .everything, priceLimit: Int = 2, drinker: Bool = false, smoker: Bool = false, likes: [ActivityRoot] = [], dislikes: [ActivityRoot] = [], favorites: [ActivityRoot] = [], mustTrys: [ActivityRoot] = [], visited: [ActivityRoot] = [], likedCategories: CategoryManager = CategoryManager()) {
         self.id = id
+        self.firstName = firstName
+        self.lastName = lastName
         self.diet = diet
         self.priceLimit = priceLimit
         self.drinker = drinker
@@ -33,7 +37,7 @@ class Profile: Identifiable {
         self.favorites = favorites
         self.mustTrys = mustTrys
         self.visited = visited
-        self.neverAgain = neverAgain
+        self.likedCategories = likedCategories
     }
 }
 

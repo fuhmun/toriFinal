@@ -11,22 +11,31 @@ import SwiftData
 
 struct FilterView: View {
     
-    @State var isSelected: Bool = false
+    @Binding var selectedCategory: yelpCategories?
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack(spacing: 27) {
-            ForEach(yelpCategories.allCases, id: \.self) { category in
+                ForEach(yelpCategories.allCases, id: \.self) { category in
                     Button {
-                        isSelected.toggle()
+                        if selectedCategory == category {
+                            selectedCategory = nil
+                        } else {
+                            selectedCategory = category
+                        }
+                        print(category.rawValue)
+                        print(selectedCategory ?? "")
                     } label: {
                         VStack {
                             Image(systemName: category.icon)
                             Text(category.rawValue)
                                 .font(.caption)
                         }
-                        .foregroundStyle(isSelected ? .accent : .white)
+                        .foregroundStyle(selectedCategory == category ? .accent : .white)
                     }
+                    .disabled (
+                        selectedCategory == category
+                    )
                 }
             }
         }

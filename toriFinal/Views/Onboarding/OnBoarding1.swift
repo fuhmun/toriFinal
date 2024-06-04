@@ -32,7 +32,7 @@ struct OnBoarding1: View {
                         }
                         else {
                             Rectangle()
-                                .fill(Color.black)
+                                .fill(Color.white)
                                 .opacity(0.8)
                                 .frame(width: geometry.size.width / 13, height: geometry.size.height / 90)
                         }
@@ -41,7 +41,7 @@ struct OnBoarding1: View {
                 Text("First things first, what's your name?")
                     .font(.system(.title2, design: .serif))
                     .font(.title)
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .padding(.all)
                     .multilineTextAlignment(.center)
                 
@@ -49,8 +49,8 @@ struct OnBoarding1: View {
                     "First",
                     text: $firstName
                 )
-                .foregroundColor(.black)
-                .background(Color.white)
+                .foregroundColor(.white)
+                .background(Color.gray)
                 .multilineTextAlignment(.center)
                 .disableAutocorrection(true)
                 .textFieldStyle(.roundedBorder)
@@ -63,8 +63,8 @@ struct OnBoarding1: View {
                     "Last",
                     text: $lastName
                 )
-                .foregroundColor(.black)
-                .background(Color.white)
+                .foregroundColor(.white)
+                .background(Color.gray)
                 .multilineTextAlignment(.center)
                 .disableAutocorrection(true)
                 .textFieldStyle(.roundedBorder)
@@ -82,22 +82,21 @@ struct OnBoarding1: View {
                     Text("Next")
                         .font(.system(.title, design: .serif))
                         .foregroundStyle(Color.white)
-                        .frame(width: geometry.size.width/1.3, height: geometry.size.height/11)
+                        .frame(width: geometry.size.width/3.0, height: geometry.size.height/11)
                         .background(RoundedRectangle(cornerRadius: 25.0, style: .continuous)
-                            .fill(firstName != "" && lastName != "" ? Color.blue : Color.gray))
+                            .fill(firstName != "" && lastName != "" ? Color.blue : Color.red))
                 }
                 
                 .buttonStyle(ScaleButtonStyle())
                 .padding(.bottom)
-                
             }
             .padding(.top)
-            .frame(width: geometry.size.width/1.2, height: geometry.size.height/1.2)
-            .background(Color.white)
-            .opacity(0.6)
-            .clipShape(
-                RoundedRectangle(cornerRadius: 25.0, style: .continuous)
-            )
+//            .frame(width: geometry.size.width/1.2, height: geometry.size.height/1.2)
+//            .background(Color.white)
+//            .opacity(0.6)
+//            .clipShape(
+//                RoundedRectangle(cornerRadius: 25.0, style: .continuous)
+//            )
         }
     }
     private func initiateDelayedActions() {

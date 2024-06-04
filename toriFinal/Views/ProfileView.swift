@@ -56,6 +56,13 @@ struct ProfileView: View {
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
     
+    init() {
+            UISegmentedControl.appearance().selectedSegmentTintColor = .accent
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+            UISegmentedControl.appearance().backgroundColor = UIColor(.white.opacity(0.1))
+        }
+    
     var body: some View {
         GeometryReader { geoProx in
             VStack {

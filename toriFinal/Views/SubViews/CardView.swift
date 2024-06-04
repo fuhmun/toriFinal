@@ -21,6 +21,7 @@ struct CardView: View {
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
     
+    @ObservedObject var categoryManager = CategoryManager()
     @State private var cardFlipped: Bool = false
     @State private var dragOffset: CGSize = CGSize.zero
     @State private var colorOverlay: Color = .white.opacity(0.2)
@@ -69,6 +70,7 @@ struct CardView: View {
                         withAnimation {
                             swipeCard(width: dragOffset.width)
                             changeColor(width: dragOffset.width)
+                            categoryManager.getTopThree()
                         }
                     }
             )
@@ -165,7 +167,8 @@ struct CardView: View {
                     }
                 }
             }
-
+            
+            
             
         default:
             dragOffset = .zero

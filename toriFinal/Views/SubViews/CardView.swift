@@ -156,9 +156,21 @@ struct CardView: View {
                 }
             }
             
+            if let profile = userProfile.first {
+                for x in yelpCategories.allCases {
+                    if let categories = activityCards.categories {
+                        for y in categories {
+                            profile.likedCategories.incrementSubCategory(yelpBigCat: x.rawValue, subCategoryName: y.title ?? "")
+                        }
+                    }
+                }
+            }
+
+            
         default:
             dragOffset = .zero
         }
+
     }
     
     func changeColor(width: CGFloat) {

@@ -9,6 +9,7 @@ import SwiftUI
 import AppIntents
 import PhotosUI
 import UIKit
+import SwiftData
 
 struct ImagePicker: UIViewControllerRepresentable {
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -51,6 +52,10 @@ struct ProfileView: View {
     @State private var showSheet: Bool = false
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var showImagePicker = false
+    
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
+    
     var body: some View {
         GeometryReader { geoProx in
             VStack {
@@ -127,9 +132,10 @@ struct ProfileView: View {
                             Text("Favorites").tag(3)
                         }
                         .pickerStyle(SegmentedPickerStyle())
-                        .foregroundStyle(.thinMaterial)
+                        .foregroundStyle(.white)
                         .padding(.leading)
                         .padding(.trailing)
+                        
                     }
                 }
                 

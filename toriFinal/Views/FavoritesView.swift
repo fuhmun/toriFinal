@@ -29,6 +29,7 @@ struct FavoritesView: View {
                         .foregroundStyle(.white)
                     Spacer()
                 }
+                .frame(width: geoProx.size.width*0.7, height: geoProx.size.height*0.7)
             }
         }
         .edgesIgnoringSafeArea(.all)

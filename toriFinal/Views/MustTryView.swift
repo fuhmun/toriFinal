@@ -27,10 +27,13 @@ struct MustTryView: View {
                 }
                 .onDelete(perform: deleteActivity)
             } else {
-                Spacer()
-                Text("None")
-                    .foregroundStyle(.white)
-                Spacer()
+                VStack {
+                    Spacer()
+                    Text("None")
+                        .foregroundStyle(.white)
+                    Spacer()
+                }
+                .frame(width: geoProx.size.width*0.7, height: geoProx.size.height*0.7)
             }
         }
         .edgesIgnoringSafeArea(.all)
@@ -46,7 +49,7 @@ struct MustTryView: View {
     func createCardView(for index: Int) -> some View {
         if let profile = userProfile.first, index < profile.mustTrys.count {
             SmallCardView(activities: profile.mustTrys[index], isExpanded: self.selectedCardIndex == index, geoProx: geoProx)
-                .offset(y: self.selectedCardIndex == index ? 0 : CGFloat(index) * 60)
+                .offset(y: self.selectedCardIndex == index ? 0 : CGFloat(index) * 100)
                 .rotation3DEffect(
                     .degrees(self.selectedCardIndex == index ? 180 : 0),
                     axis: (x: 0, y: 2, z: 0)

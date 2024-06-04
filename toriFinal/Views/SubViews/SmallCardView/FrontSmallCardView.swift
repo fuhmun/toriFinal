@@ -26,26 +26,26 @@ struct FrontSmallCardView: View {
             
             AnimatedImage(url: URL(string: imageUrl))
                 .resizable()
-                .frame(width: geoProx.size.width*0.8, height: geoProx.size.height*0.3)
-//                .overlay(
-//                    VStack {
-//                        HStack {
-//                            TagListView(tags: [test], geoProx: geoProx)
-//                                .padding(.leading, geoProx.size.width*0.15)
-//                                .frame(width: geoProx.size.width*0.75)
-//                            Button {
-//                                deleteActivityFromMustTry()
-//                            } label: {
-//                                Image(systemName: "trash")
-//                                    .resizable()
-//                                    .foregroundStyle(.red)
-//                                    .frame(width: geoProx.size.width*0.05, height: geoProx.size.height*0.05)
-//                            }
-//                        }
-//                        Spacer()
-//                    }
-//                    ,alignment: .topLeading
-//                )
+                .frame(width: geoProx.size.width*0.9, height: geoProx.size.height*0.3)
+                .overlay(
+                    VStack {
+                        HStack {
+                            TagListView(tags: [test], geoProx: geoProx)
+                                .padding(.leading, geoProx.size.width*0.2)
+                                .frame(width: geoProx.size.width*0.8)
+                            Button {
+                                deleteActivityFromMustTry()
+                            } label: {
+                                Image(systemName: "trash")
+                                    .resizable()
+                                    .foregroundStyle(.red)
+                                    .frame(width: geoProx.size.width*0.05, height: geoProx.size.height*0.05)
+                            }
+                        }
+                        Spacer()
+                    }
+                    ,alignment: .topLeading
+                )
         }
     }
         

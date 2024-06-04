@@ -7,6 +7,9 @@
 
 import Foundation
 import SwiftData
+import AppIntents
+import PhotosUI
+import UIKit
 
 @Model
 class Profile: Identifiable {
@@ -23,6 +26,7 @@ class Profile: Identifiable {
     var mustTrys: [ActivityRoot]
     var visited: [ActivityRoot]
     var likedCategories : CategoryManager
+//    var selectedImage: UIImage?
 
     init(id: UUID = UUID(), firstName: String = "", lastName: String = "", diet: Dietary = .everything, priceLimit: Int = 2, drinker: Bool = false, smoker: Bool = false, likes: [ActivityRoot] = [], dislikes: [ActivityRoot] = [], favorites: [ActivityRoot] = [], mustTrys: [ActivityRoot] = [], visited: [ActivityRoot] = [], likedCategories: CategoryManager = CategoryManager()) {
         self.id = id

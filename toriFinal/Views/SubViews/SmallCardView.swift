@@ -21,9 +21,9 @@ struct SmallCardView: View {
                 FrontSmallCardView(geoProx: geoProx, activity: activities)
             }
         }
-        .frame(width: isExpanded ? UIScreen.main.bounds.width : geoProx.size.width*0.8,
+        .frame(width: isExpanded ? UIScreen.main.bounds.width : geoProx.size.width*0.9,
                height: isExpanded ? geoProx.size.height*0.9 : geoProx.size.height*0.3)
-        .background(isExpanded ? Color.black : .accent)
+        .background(isExpanded ? Color.black : .black)
         .cornerRadius(isExpanded ? 0 : 10)
         .shadow(radius: isExpanded ? 0 : 10)
     }

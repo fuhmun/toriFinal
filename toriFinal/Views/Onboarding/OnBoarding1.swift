@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct OnBoarding1: View {
     @State var firstName: String = ""
@@ -14,6 +15,9 @@ struct OnBoarding1: View {
     var geometry: GeometryProxy
     let indexRectangle: Int = 0
     @Binding var selectedTab: Int
+    
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
     
     var body: some View {
         VStack {
@@ -58,6 +62,9 @@ struct OnBoarding1: View {
                 .frame(width: geometry.size.width/1.4, height: geometry.size.height/35)
                 .opacity(0.9)
                 .padding(.all)
+                .onSubmit {
+                    userProfile.first?.firstName = firstName
+                }
                 
                 TextField (
                     "Last",
@@ -72,6 +79,9 @@ struct OnBoarding1: View {
                 .frame(width: geometry.size.width/1.4, height: geometry.size.height/35)
                 .opacity(0.9)
                 .padding(.all)
+                .onSubmit {
+                    userProfile.first?.lastName = lastName
+                }
                 Spacer()
                 
                 Button {
@@ -103,6 +113,8 @@ struct OnBoarding1: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             withAnimation {
                 if self.firstName != "" && self.lastName != "" {
+                    userProfile.first?.firstName = firstName
+                    userProfile.first?.lastName = lastName
                     self.selectedTab = 1
                 }
             }

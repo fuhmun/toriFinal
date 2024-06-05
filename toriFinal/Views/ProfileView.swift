@@ -77,7 +77,7 @@ struct ProfileView: View {
                         HStack {
                             Spacer()
                             Button {
-                                
+                                // Handle Settings
                             } label: {
                                 Image(systemName: "gearshape.fill")
                                     .font(.title)
@@ -100,9 +100,10 @@ struct ProfileView: View {
                                     Circle()
                                         .fill(Color.white)
                                         .frame(width: geoProx.size.width * 0.2, height: geoProx.size.width * 0.2)
-                                        .overlay(Text("JW")
-                                            .font(.title2)
-                                            .fontWeight(.bold))
+                                        .overlay(
+                                            Text("\(userProfile.first?.firstName.prefix(1) ?? " ")\(userProfile.first?.lastName.prefix(1) ?? " ")")
+                                                    .font(.title2)
+                                                    .fontWeight(.bold))
                                         .foregroundColor(.gray)
                                 }
                             }
@@ -124,19 +125,21 @@ struct ProfileView: View {
                                     .ignoresSafeArea()
                             }
                             .padding(.leading)
-                            
-                            Text("Jazz W.")
-                                .fontWeight(.bold)
-                                .font(.largeTitle)
-                                .padding(.leading, 15)
-                                .foregroundStyle(.white)
+                            HStack {
+                                Text("\(userProfile.first?.firstName ?? " ") \(userProfile.first?.lastName.prefix(1) ?? " ").")
+                            }
+                            .fontWeight(.bold)
+                            .font(.largeTitle)
+                            .padding(.leading, 15)
+                            .foregroundStyle(.white)
                             Spacer()
                             
                         }
+                        .padding(.bottom, geoProx.size.height*0.02)
                         Picker(selection: $selected, label: Text("")) {
-                            Text("Must Try").tag(1)
-                            Text("Visited").tag(2)
-                            Text("Favorites").tag(3)
+                            Text("Visited").tag(1)
+                            Text("Favorites").tag(2)
+//                            Text("Favorites").tag(3)
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .foregroundStyle(.white)
@@ -145,8 +148,6 @@ struct ProfileView: View {
                         
                     }
                 }
-                
-                
                 //Bottom half
                 ZStack {
                     Color(CustomColor.grayBG)
@@ -154,14 +155,14 @@ struct ProfileView: View {
                         VStack{
                             Spacer()
                             if selected == 1 {
-                                MustTryView(geoProx: geoProx)
-                            }
-                            else if selected == 2{
                                 VisitedView(geoProx: geoProx)
                             }
-                            else {
-                                FavoritesView(geoProx: geoProx)
+                            else if selected == 2 {
+                                MustTryView(geoProx: geoProx)
                             }
+//                            else {
+//                                FavoritesView(geoProx: geoProx)
+//                            }
                         }
                         Spacer()
                         

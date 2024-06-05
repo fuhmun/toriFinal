@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DietOption {
     var name: String
@@ -23,6 +24,9 @@ struct OnBoarding2: View {
         [DietOption(name: "Halal", selected: false), DietOption(name: "Pescetarian", selected: false)],
         [DietOption(name: "Carnivore", selected: false), DietOption(name: "None", selected: false)]
     ]
+    
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
     
     var body: some View {
         //For the tab index at the top
@@ -114,6 +118,7 @@ struct OnBoarding2: View {
             let selectedDiets = diets.flatMap { $0 }
                 .filter { $0.selected }
                 .map { $0.name }
+//            userProfile.first?.diet
         }
     }
     private func initiateDelayedActions() {
@@ -121,6 +126,7 @@ struct OnBoarding2: View {
             withAnimation {
                 if dietSelected {
                     self.selectedTab = 2
+                    
                 }
             }
         }

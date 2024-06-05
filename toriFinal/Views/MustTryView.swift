@@ -29,7 +29,7 @@ struct MustTryView: View {
             } else {
                 VStack {
                     Spacer()
-                    Text("None")
+//                    Text("None")
                         .foregroundStyle(.white)
                     Spacer()
                 }

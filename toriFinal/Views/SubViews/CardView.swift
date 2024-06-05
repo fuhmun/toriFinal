@@ -21,7 +21,6 @@ struct CardView: View {
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
     
-    @ObservedObject var categoryManager = CategoryManager()
     @State private var cardFlipped: Bool = false
     @State private var dragOffset: CGSize = CGSize.zero
     @State private var colorOverlay: Color = .white.opacity(0.2)
@@ -34,7 +33,14 @@ struct CardView: View {
             VStack {
                 HStack {
                     if !cardFlipped {
-                        FrontBigCardView(geoProx: geoProx, activityCards: activityCards, randomActivity: randomActivity)
+                        FrontBigCardView(
+                            geoProx: geoProx,
+                            activityCards: activityCards,
+                            randomActivity: randomActivity,
+                            activityList: activityList,
+                            dragOffset: $dragOffset,
+                            swipeAction: { swipeCard(width: dragOffset.width) }
+                        )
                     } else {
                         BackBigCardView(geoProx: geoProx, activityCards: activityCards, randomActivity: randomActivity)
                     }
@@ -68,11 +74,13 @@ struct CardView: View {
                     }
                     .onEnded { _ in
                         withAnimation {
-                            swipeCard(width: dragOffset.width)
-                            changeColor(width: dragOffset.width)
-                            categoryManager.getTopThree()
-                        }
-                    }
+                            if abs(dragOffset.width) >= 150 && abs(dragOffset.width) <= 500 {
+                                swipeCard(width: dragOffset.width)
+                            } else {
+                                dragOffset = .zero
+                                changeColor(width: 0)
+                            }
+                        }                    }
             )
         }
     }
@@ -173,7 +181,7 @@ struct CardView: View {
         default:
             dragOffset = .zero
         }
-
+        
     }
     
     func changeColor(width: CGFloat) {

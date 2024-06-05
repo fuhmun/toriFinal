@@ -69,7 +69,7 @@ struct TagListView: View {
         HStack {
             Text(tag.name)
                 .font(.caption)
-                .foregroundStyle(.accent)
+                .foregroundStyle(.black)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 3)
                 .background(

@@ -51,14 +51,14 @@ struct DiscoverView: View {
                     
                     if !activitesLoaded {
                         
-                        
-                        VStack {
-                            Image("locationPin")
-                                .resizable()
-                                .frame(width: geoProx.size.width/5, height: geoProx.size.height/5)
-                            Text("Loading suggestions...")
-                                .foregroundStyle(.white)
-                        }
+                        LoadingView()
+//                        VStack {
+//                            Image("locationPin")
+//                                .resizable()
+//                                .frame(width: geoProx.size.width/5, height: geoProx.size.height/5)
+//                            Text("Loading suggestions...")
+//                                .foregroundStyle(.white)
+//                        }
                     } else {
                         ZStack {
                             ForEach((randomActivity.foundActivities.indices), id: \.self) { card in

@@ -32,7 +32,7 @@ struct LoadingView: View {
                                 axis: (x:isPinAnimated ? 0 : 0, y:isPinAnimated ? 0 : 360, z: isPinAnimated ? 0 : 0)
                             )
                         //                    .opacity(isPinAnimated ? 1.0 : 0.5)
-                            .animation(.easeInOut(duration: 15).repeatForever(autoreverses: false))
+                            .animation(.easeInOut(duration: 2.5).repeatForever(autoreverses: false))
                             .padding()
                         Text("Loading…")
                             .font(.title)

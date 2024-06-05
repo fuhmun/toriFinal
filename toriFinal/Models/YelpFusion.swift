@@ -102,8 +102,6 @@ class YelpAPI : ObservableObject {
         
         print(cate)
         
-        let apiKey = "vqv650052B9RbYLV983v3bs9qnqpR5Z89vuzuPrmkf05RmvpyhJaZmBkNpbvz2FI6p8qrFyTGmgc38dKbQu1L9Fyj6qdZAOeNIR_LF_35RSqRIm_Mla5M26ja-U4ZnYx"
-        
         let baseURL = "https://api.yelp.com/v3/businesses/search"
         
         let url = URL(string: baseURL)!
@@ -123,7 +121,7 @@ class YelpAPI : ObservableObject {
         var request = URLRequest(url: components.url!)
         request.httpMethod = "GET"
         request.timeoutInterval = 10
-        request.allHTTPHeaderFields = ["Authorization" : "Bearer \(apiKey)", "accept": "application/json"]
+        request.allHTTPHeaderFields = ["Authorization" : "Bearer \(Constants.APIKey)", "accept": "application/json"]
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             

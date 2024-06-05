@@ -56,7 +56,7 @@ struct ContentView: View {
     
     private func initializeUserProfile() {
             if userProfile.isEmpty {
-                let newUserProfile = Profile(id: UUID(), firstName: "", lastName: "", diet: .everything, priceLimit: 2, drinker: false, smoker: false, likes: [], dislikes: [], favorites: [], mustTrys: [], visited: [], likedCategories: CategoryManager())
+                let newUserProfile = Profile()
                 modelContext.insert(newUserProfile)
                 do {
                     try modelContext.save()

@@ -13,6 +13,9 @@ struct FilterView: View {
     
     @Binding var selectedCategory: yelpCategories?
     
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack(spacing: 27) {
@@ -23,6 +26,7 @@ struct FilterView: View {
                         } else {
                             selectedCategory = category
                         }
+                        userProfile.first?.likedCategories.getTopThree(for: category.rawValue)
                         print(category.rawValue)
                         print(selectedCategory ?? "")
                     } label: {

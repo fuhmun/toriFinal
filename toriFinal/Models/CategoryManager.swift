@@ -587,7 +587,7 @@ class CategoryManager: ObservableObject {
                 SubCategory(title: "Tattoo", alias: "tattoo"),
                 SubCategory(title: "Teeth Whitening", alias: "teethwhitening")
             ]),
-            YelpCategory(name: "Entertainment", subCategories: [
+            YelpCategory(name: "Leisure", subCategories: [
                 SubCategory(title: "Arcades", alias: "arcades"),
                 SubCategory(title: "Art Galleries", alias: "artgalleries"),
                 SubCategory(title: "Bingo Halls", alias: "bingohalls"),
@@ -644,7 +644,6 @@ class CategoryManager: ObservableObject {
                 SubCategory(title: "Yelp Events", alias: "yelpevents")
             ])
         ]
-        
     }
     
     
@@ -662,17 +661,17 @@ class CategoryManager: ObservableObject {
         print("Incremented count for subcategory \(subCategoryName) in category \(yelpBigCat). New count: \(categories[categoryIndex].subCategories[subCategoryIndex].count)")
     }
     
-//    func findMaxSubCategory(yelpBigCat: String) -> SubCategory? {
-//        guard let category = categories.first(where: { $0.name == yelpBigCat }) else { return nil }
-//        
-//        return category.subCategories.max(by: { $0.count < $1.count })
-//    }
-    
-    func getTopThree() {
-        let topThree = categories[0].subCategories.sorted { $0.count > $1.count }.prefix(3)
-        print(topThree)
+    func getTopThree(for categoryName: String) {
+        if let category = categories.first(where: { $0.name == categoryName }) {
+            let topThree = category.subCategories.sorted { $0.count > $1.count }.prefix(3)
+            let topThreeNames = topThree.map { $0.title }
+            print("Top three subcategories for \(category.name): \(topThreeNames)")
+        } else {
+            print("Category \(categoryName) not found.")
+        }
     }
 }
+
 
 
 struct RandomCategory {

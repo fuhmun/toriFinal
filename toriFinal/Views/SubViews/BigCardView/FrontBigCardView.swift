@@ -17,11 +17,15 @@ struct FrontBigCardView: View {
     var geoProx : GeometryProxy
     var activityCards: Activity
     @ObservedObject var randomActivity: YelpAPI
+    var activityList: RandomCategory
+    @Binding var dragOffset: CGSize
+    var swipeAction: (() -> Void)?
     
     @State private var isFavorite: Bool = false
     
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
+    
     
     var body: some View {
         
@@ -67,12 +71,13 @@ struct FrontBigCardView: View {
                         Spacer()
                         HStack {
                             Button {
-                                
+                                dragOffset = CGSize(width: -500, height: 0)
+                                swipeAction?()
                             } label: {
                                 ZStack {
                                     Circle()
                                         .fill(.accent)
-                                        .frame(width: geoProx.size.width*0.15)
+                                        .frame(width: geoProx.size.width*0.13)
                                     Image(systemName: "xmark")
                                         .font(.largeTitle)
                                         .foregroundStyle(.white)
@@ -80,12 +85,13 @@ struct FrontBigCardView: View {
                             }
                             Spacer()
                             Button {
-                                
+                                dragOffset = CGSize(width: 500, height: 0)
+                                swipeAction?()
                             } label: {
                                 ZStack {
                                     Circle()
                                         .fill(.accent)
-                                        .frame(width: geoProx.size.width*0.15)
+                                        .frame(width: geoProx.size.width*0.13)
                                     Image(systemName: "checkmark")
                                         .font(.largeTitle)
                                         .foregroundStyle(.white)
@@ -104,32 +110,32 @@ struct FrontBigCardView: View {
     
     func addActivityToMustTrys() {
         
-            guard let user = userProfile.first else {
-                print("No user profile found")
-                return
-            }
-            
-        let mustTryActivity = ActivityRoot(id: UUID(), activity: swiftActivity(from: activityCards))
-            
-            user.mustTrys.append(mustTryActivity)
-//        user.mustTrys.insert(contentsOf: mustTryActivity, at: )
-            modelContext.insert(mustTryActivity)
-            
-            do {
-                try modelContext.save()
-                isFavorite = true
-                print("Activity added to mustTrys")
-            } catch {
-                print("Failed to save context: \(error)")
-            }
+        guard let user = userProfile.first else {
+            print("No user profile found")
+            return
+        }
         
-            if let profile = userProfile.first {
-                print("User profile mustTrys count: \(profile.mustTrys.count)")
-                for activity in profile.mustTrys {
-                    print("Activity name: \(activity.activity.name ?? "Unknown")")
-                }
+        let mustTryActivity = ActivityRoot(id: UUID(), activity: swiftActivity(from: activityCards))
+        
+        user.mustTrys.append(mustTryActivity)
+        //        user.mustTrys.insert(contentsOf: mustTryActivity, at: )
+        modelContext.insert(mustTryActivity)
+        
+        do {
+            try modelContext.save()
+            isFavorite = true
+            print("Activity added to mustTrys")
+        } catch {
+            print("Failed to save context: \(error)")
+        }
+        
+        if let profile = userProfile.first {
+            print("User profile mustTrys count: \(profile.mustTrys.count)")
+            for activity in profile.mustTrys {
+                print("Activity name: \(activity.activity.name ?? "Unknown")")
             }
         }
+    }
     
     private func deleteActivityFromMustTry() {
         guard let user = userProfile.first else { return }

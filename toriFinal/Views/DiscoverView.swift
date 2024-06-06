@@ -39,6 +39,8 @@ struct DiscoverView: View {
     @State private var cardOffset: Int = 0
     @State private var activityList = RandomCategory()
     
+    @Binding var selectedTab: Int
+    
     var body: some View {
         GeometryReader{ geoProx in
             ZStack {
@@ -96,6 +98,6 @@ struct DiscoverView: View {
     
 }
 
-#Preview {
-    DiscoverView()
-}
+//#Preview {
+//    DiscoverView()
+//}

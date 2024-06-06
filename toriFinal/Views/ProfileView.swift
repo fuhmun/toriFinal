@@ -52,11 +52,13 @@ struct ProfileView: View {
     @State private var showSheet: Bool = false
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var showImagePicker = false
+    @Binding var selectedTab: Int
     
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
     
-    init() {
+    init(selectedTab: Binding<Int>) {
+        self._selectedTab = selectedTab
             UISegmentedControl.appearance().selectedSegmentTintColor = .accent
             UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
             UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
@@ -69,6 +71,7 @@ struct ProfileView: View {
                 //Top half
                 ZStack {
                     Image("ProfileBackground")
+                        .resizable()
                         .scaledToFill()
                         .ignoresSafeArea(.all)
                         .frame(width: geoProx.size.width, height: geoProx.size.height * 0.25)
@@ -108,15 +111,15 @@ struct ProfileView: View {
                                 }
                             }
                             .actionSheet(isPresented: $showSheet, content: {
-                                ActionSheet(title: Text("Select an option"), buttons: [
+                                ActionSheet(title: Text("") , buttons: [
                                     .default(Text("Select from Gallery")) {
                                         sourceType = .photoLibrary
                                         showImagePicker = true
                                     },
-                                    .default(Text("Camera")) {
-                                        sourceType = .camera
-                                        showImagePicker = true
-                                    },
+//                                    .default(Text("Camera")) {
+//                                        sourceType = .camera
+//                                        showImagePicker = true
+//                                    },
                                     .cancel()
                                 ])
                             })
@@ -155,10 +158,10 @@ struct ProfileView: View {
                         VStack{
                             Spacer()
                             if selected == 1 {
-                                VisitedView(geoProx: geoProx)
+                                VisitedView(selectedTab: $selectedTab, geoProx: geoProx)
                             }
                             else if selected == 2 {
-                                MustTryView(geoProx: geoProx)
+                                MustTryView(selectedTab: $selectedTab, geoProx: geoProx)
                             }
 //                            else {
 //                                FavoritesView(geoProx: geoProx)
@@ -175,6 +178,6 @@ struct ProfileView: View {
 
 
 
-#Preview {
-    ProfileView()
-}
+//#Preview {
+//    ProfileView()
+//}

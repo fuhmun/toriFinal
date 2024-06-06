@@ -12,13 +12,14 @@ import SwiftData
 struct FilterView: View {
     
     @Binding var selectedCategory: yelpCategories?
+    var geoProx: GeometryProxy
     
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
-            HStack(spacing: 27) {
+            HStack {
                 ForEach(yelpCategories.allCases, id: \.self) { category in
                     Button {
                         if selectedCategory == category {
@@ -37,6 +38,7 @@ struct FilterView: View {
                         }
                         .foregroundStyle(selectedCategory == category ? .accent : .white)
                     }
+                    .frame(width: geoProx.size.width * 0.125)
                     .disabled (
                         selectedCategory == category
                     )

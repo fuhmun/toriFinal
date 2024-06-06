@@ -14,6 +14,7 @@ struct MustTryView: View {
     
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
+    @Binding var selectedTab: Int
     
     var geoProx: GeometryProxy
     
@@ -45,7 +46,7 @@ struct MustTryView: View {
                                     .padding(.top, 20)
                                 
                                 Button(action: {
-                                    // Button action
+                                    selectedTab = 1
                                 }) {
                                     Text("Get Started!")
                                         .font(.system(.title, design: .serif))

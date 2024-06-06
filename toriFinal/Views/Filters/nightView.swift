@@ -10,6 +10,7 @@ import SwiftUI
 struct nightView: View {
     
     var geoProx: GeometryProxy
+    var suggestedNight: [ActivityRoot] = []
     
     var body: some View {
         Text("night")

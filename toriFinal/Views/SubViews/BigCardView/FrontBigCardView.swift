@@ -51,10 +51,6 @@ struct FrontBigCardView: View {
                                         .font(.subheadline)
                                         .foregroundColor(.white)
                                 }
-                                //                                if let distance = activityCards.distance {
-                                //                                    let miles = distance * 0.000621371
-                                //                                    Text(String(format: "%.2f mi", miles))
-                                //                                }
                             }
                             
                             .foregroundStyle(.white)
@@ -122,7 +118,6 @@ struct FrontBigCardView: View {
         let mustTryActivity = ActivityRoot(id: UUID(), activity: swiftActivity(from: activityCards))
         
         user.mustTrys.append(mustTryActivity)
-        //        user.mustTrys.insert(contentsOf: mustTryActivity, at: )
         modelContext.insert(mustTryActivity)
         
         do {

@@ -10,6 +10,7 @@ import SwiftUI
 struct foodView: View {
     
     var geoProx: GeometryProxy
+    var suggestedFood: [ActivityRoot] = []
     
     var body: some View {
         Text("food")

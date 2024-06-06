@@ -10,6 +10,7 @@ import SwiftUI
 struct activeView: View {
     
     var geoProx: GeometryProxy
+    var suggestedActive: [ActivityRoot] = []
     
     var body: some View {
         Text("active")

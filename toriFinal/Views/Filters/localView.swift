@@ -10,6 +10,7 @@ import SwiftUI
 struct localView: View {
     
     var geoProx: GeometryProxy
+    var suggestedLocal: [ActivityRoot] = []
     
     var body: some View {
         Text("local")

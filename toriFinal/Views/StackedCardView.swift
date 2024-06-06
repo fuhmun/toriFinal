@@ -11,13 +11,13 @@ struct StackedCardView: View {
 
     @State private var selectedCardIndex: Int? = nil
     
-    @State private var Test: [ActivityRoot] = []
+    @State private var suggestedCategories: [ActivityRoot] = []
     
     var geoProx: GeometryProxy
     
     var body: some View {
         ZStack {
-            ForEach(0..<Test.count, id: \.self) { index in
+            ForEach(0..<suggestedCategories.count, id: \.self) { index in
                 createStackedView(for: index)
             }
         }
@@ -26,7 +26,7 @@ struct StackedCardView: View {
     
     @ViewBuilder
     func createStackedView(for index: Int) -> some View {
-        SmallCardView(activities: Test[index], isExpanded: self.selectedCardIndex == index, geoProx: geoProx)
+        SmallCardView(activities: suggestedCategories[index], isExpanded: self.selectedCardIndex == index, geoProx: geoProx)
             .offset(y: self.selectedCardIndex == index ? 0 : CGFloat(index) * geoProx.size.height*0.275)
             .rotation3DEffect(
                 .degrees(self.selectedCardIndex == index ? 180 : 0),

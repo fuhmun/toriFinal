@@ -10,6 +10,7 @@ import SwiftUI
 struct relaxView: View {
     
     var geoProx: GeometryProxy
+    var suggestedRelax: [ActivityRoot] = []
     
     var body: some View {
         Text("relax")

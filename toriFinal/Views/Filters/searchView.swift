@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct searchView: View {
+    
+    var geoProx: GeometryProxy
+    
     var body: some View {
         Text("search")
     }
 }
 
-#Preview {
-    searchView()
-}
+//#Preview {
+//    searchView()
+//}

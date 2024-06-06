@@ -13,7 +13,8 @@ import SwiftData
 
 struct SuggestionView: View {
     
-    @State private var selectedCategory: yelpCategories? = nil
+    @State private var selectedCategory: yelpCategories? = .food
+    
     
     var body: some View {
         GeometryReader { geoProx in
@@ -33,25 +34,24 @@ struct SuggestionView: View {
                         Spacer()
 //                        StackedCardView(geoProx: geoProx)
                         if selectedCategory == .activeLife {
-                            activeView()
+                            activeView(geoProx: geoProx)
                         } else if selectedCategory == .arts {
-                            leisureView()
+                            leisureView(geoProx: geoProx)
                         } else if selectedCategory == .beauty {
-                            relaxView()
+                            relaxView(geoProx: geoProx)
                         } else if selectedCategory == .food {
-                            foodView()
+                            foodView(geoProx: geoProx)
                         } else if selectedCategory == .nightLife {
-                            nightView()
+                            nightView(geoProx: geoProx)
                         } else if selectedCategory == .localFlavor {
-                            localView()
+                            localView(geoProx: geoProx)
                         } else {
-                            searchView()
+                            searchView(geoProx: geoProx)
                         }
                         Spacer()
                     }
                 }
                 .foregroundStyle(.white)
-                
                 // alex sucks at coding
             }
         }

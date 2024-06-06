@@ -13,7 +13,7 @@ struct Tag: Identifiable, Hashable {
     var name: String
     var size: CGFloat = 0
     var price: String?
-    var categories: [String]?
+    var categories: String?
 }
 
 struct TagListView: View {
@@ -80,6 +80,19 @@ struct TagListView: View {
             
             if let price = tag.price {
                 Text(price)
+                    .font(.caption)
+                    .foregroundStyle(.accent)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 3)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(.white)
+                    )
+                    .lineLimit(1)
+            }
+            
+            if let categories = tag.categories {
+                Text(categories)
                     .font(.caption)
                     .foregroundStyle(.accent)
                     .padding(.horizontal, 10)

@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct nightView: View {
+    
+    var geoProx: GeometryProxy
+    
     var body: some View {
         Text("night")
     }
 }
 
-#Preview {
-    nightView()
-}
+//#Preview {
+//    nightView()
+//}

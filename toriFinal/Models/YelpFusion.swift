@@ -44,6 +44,10 @@ class Activity: Decodable, Hashable, Equatable {
     var displayPhone: String?
     var distance: Double?
     var attributes: Attributes?
+    
+    var categoryTitles: String {
+            return categories?.compactMap { $0.title }.joined(separator: ", ") ?? ""
+    }
 }
 
 class Category: Decodable {

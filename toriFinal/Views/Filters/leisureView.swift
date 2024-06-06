@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct leisureView: View {
+    
+    var geoProx: GeometryProxy
+    
     var body: some View {
         Text("leisure")
     }
 }
 
-#Preview {
-    leisureView()
-}
+//#Preview {
+//    leisureView()
+//}

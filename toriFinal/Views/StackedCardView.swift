@@ -11,12 +11,6 @@ struct StackedCardView: View {
 
     @State private var selectedCardIndex: Int? = nil
     
-//    @State private var Test = [
-//        (name: "Activity A", description: "Delicious food A"),
-//        (name: "Activity B", description: "Delicious food B"),
-//        (name: "Activity C", description: "Delicious food C")
-//    ]
-    
     @State private var Test: [ActivityRoot] = []
     
     var geoProx: GeometryProxy

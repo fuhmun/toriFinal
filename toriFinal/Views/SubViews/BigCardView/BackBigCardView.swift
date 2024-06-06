@@ -47,8 +47,40 @@ struct BackBigCardView: View {
                             .padding(geoProx.size.height/30)
                             RoundedRectangle(cornerRadius: 25.0)
                                 .fill(.white.opacity(0.75))
-                                .frame(width: geoProx.size.width*0.7, height: geoProx.size.height*0.5)
-                                
+                                .frame(width: geoProx.size.width*0.7, height: geoProx.size.height*0.55)
+                                .overlay (
+                                    VStack(alignment: .leading) {
+                                        VStack(alignment: .leading) {
+                                            Text("Hours")
+                                                .fontWeight(.bold)
+                                            Text("Sunday")
+                                            Text("Monday")
+                                            Text("Tuesday")
+                                            Text("Wednesday")
+                                            Text("Thursday")
+                                            Text("Friday")
+                                            Text("Saturday")
+                                        }
+                                        .padding(.bottom)
+                                        VStack(alignment: .leading) {
+                                            Text("Address")
+                                                .fontWeight(.bold)
+                                            
+                                        }
+                                        .padding(.bottom)
+                                        VStack(alignment: .leading) {
+                                            Text("Phone")
+                                                .fontWeight(.bold)
+                                            
+                                        }
+                                        .padding(.bottom)
+                                        VStack(alignment: .leading) {
+                                            Text("Website")
+                                                .fontWeight(.bold)
+                                        }
+                                    }
+                                        .padding()
+                                    , alignment: .leading)
                         }
                         ,alignment: .topLeading
                     )

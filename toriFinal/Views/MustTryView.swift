@@ -29,13 +29,13 @@ struct MustTryView: View {
                     Spacer()
                     RoundedRectangle(cornerRadius: 20.0)
                         .fill(.white.opacity(0.75))
-                        .frame(width: geoProx.size.width*0.7, height: geoProx.size.height*0.5)
+                        .frame(width: geoProx.size.width*0.75, height: geoProx.size.height*0.6)
                         .overlay (
                             VStack {
                                 Spacer()
                                 Image("Group")
                                     .resizable()
-                                    .scaledToFit()
+                                    .frame(width: geoProx.size.width*0.6, height: geoProx.size.height*0.25)
 //                                    .frame(width: geoProx.size.width * 0.6, height: geoProx.size.height * 0.4)
                                 
                                 Text("Let's find some cool spots to add.")
@@ -56,9 +56,9 @@ struct MustTryView: View {
                                 }
                                 .frame(width: geoProx.size.width * 0.6, height: geoProx.size.height * 0.08)
                                 .padding(.top, 20)
+                                Spacer()
                             }
                             , alignment: .center)
-                    Spacer()
                 }
             }
         }

@@ -98,7 +98,7 @@ struct BackBigCardView: View {
                                         VStack(alignment: .leading) {
                                             Text("Website")
                                                 .fontWeight(.bold)
-                                            Text(activityCards.business_url ?? "Not available")
+                                            Text(activityCards.attributes?.business_url ?? "Not available")
                                                 .font(.subheadline)
                                         }
                                     }

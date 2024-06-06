@@ -12,37 +12,37 @@ struct MustTryView: View {
     
     @State private var selectedCardIndex: Int? = nil
     
-    @Environment(\.modelContext) var modelContext
+     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
-
+    
     var geoProx: GeometryProxy
-    
-//    @State var mustTryCards: [ActivityRoot] = []
-    
+        
     var body: some View {
         ZStack {
             if let profile = userProfile.first, !profile.mustTrys.isEmpty {
-                ForEach(0..<profile.mustTrys.count, id: \.self) { index in
-                    createCardView(for: index)
-                }
-                .onDelete(perform: deleteActivity)
+                    ForEach(0..<profile.mustTrys.count, id: \.self) { index in
+                        createCardView(for: index)
+                    }
+                    .onDelete(perform: deleteActivity)
             } else {
                 VStack {
                     Spacer()
-//                    Text("None")
-                        .foregroundStyle(.white)
+                         Image("Group")
+                        .resizable()
+                        .scaledToFit()
+                    Text("Let's find some cool spots to add.")
                     Spacer()
                 }
                 .frame(width: geoProx.size.width*0.7, height: geoProx.size.height*0.7)
             }
         }
         .edgesIgnoringSafeArea(.all)
-//        .onAppear {
-//            updateMustTryCards()
-//        }
-//        .onChange(of: userProfile.first?.mustTrys) {
-//            updateMustTryCards()
-//        }
+        //        .onAppear {
+        //            updateMustTryCards()
+        //        }
+        //        .onChange(of: userProfile.first?.mustTrys) {
+        //            updateMustTryCards()
+        //        }
     }
     
     @ViewBuilder
@@ -70,12 +70,12 @@ struct MustTryView: View {
     
     func deleteActivity(_ indexSet: IndexSet) {
         guard let profile = userProfile.first  else { return }
-            
+        
         for index in indexSet {
             let activity = profile.mustTrys[index]
             modelContext.delete(activity)
         }
-         
+        
         do {
             try modelContext.save()
         } catch {
@@ -83,9 +83,9 @@ struct MustTryView: View {
         }
     }
     
-//    func updateMustTryCards() {
-//        mustTryCards = userProfile.first?.mustTrys ?? []
-//    }
+    //    func updateMustTryCards() {
+    //        mustTryCards = userProfile.first?.mustTrys ?? []
+    //    }
 }
 
 //#Preview {

@@ -26,7 +26,6 @@ struct FrontBigCardView: View {
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
     
-    
     var body: some View {
         
         if let imageUrl = activityCards.image_url {
@@ -47,10 +46,15 @@ struct FrontBigCardView: View {
                                 if let city = activityCards.location?.city, let state = activityCards.location?.state {
                                     Text("\(city), \(state)")
                                 }
-                                if let distance = activityCards.distance {
-                                    let miles = distance * 0.000621371
-                                    Text(String(format: "%.2f mi", miles))
+                                if !activityCards.categoryTitles.isEmpty {
+                                    Text(activityCards.categoryTitles)
+                                        .font(.subheadline)
+                                        .foregroundColor(.white)
                                 }
+                                //                                if let distance = activityCards.distance {
+                                //                                    let miles = distance * 0.000621371
+                                //                                    Text(String(format: "%.2f mi", miles))
+                                //                                }
                             }
                             
                             .foregroundStyle(.white)

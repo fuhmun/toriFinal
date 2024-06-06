@@ -15,7 +15,7 @@ struct FrontSmallCardView: View {
     
     var geoProx: GeometryProxy
     var activity: ActivityRoot
-    var test: Tag { Tag(name: activity.activity.name ?? "", price: activity.activity.price) }
+    var test: Tag { Tag(name: activity.activity.name ?? "", price: activity.activity.price, categories: activity.activity.categories?.first?.title) }
     
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]

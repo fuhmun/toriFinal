@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct localView: View {
+    
+    var geoProx: GeometryProxy
+    
     var body: some View {
         Text("local")
     }
 }
 
-#Preview {
-    localView()
-}
+//#Preview {
+//    localView()
+//}

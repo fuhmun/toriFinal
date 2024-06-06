@@ -48,17 +48,8 @@ struct DiscoverView: View {
                     .frame(width: geoProx.size.width)
                     .ignoresSafeArea()
                 VStack {
-                    
                     if !activitesLoaded {
-                        
                         LoadingView()
-//                        VStack {
-//                            Image("locationPin")
-//                                .resizable()
-//                                .frame(width: geoProx.size.width/5, height: geoProx.size.height/5)
-//                            Text("Loading suggestions...")
-//                                .foregroundStyle(.white)
-//                        }
                     } else {
                         ZStack {
                             ForEach((randomActivity.foundActivities.indices), id: \.self) { card in
@@ -71,7 +62,6 @@ struct DiscoverView: View {
                                 .cardScale(at: card, in: randomActivity.foundActivities.count - 1)
                                 .cardZOffest(at: card, in: randomActivity.foundActivities.count - 1)
                                 .allowsHitTesting(card == randomActivity.foundActivities.count - 1)
-//                                .offset(y:geoProx.size.height/50)
                             }
                         }
                     }

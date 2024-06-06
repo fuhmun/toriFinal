@@ -12,28 +12,54 @@ struct MustTryView: View {
     
     @State private var selectedCardIndex: Int? = nil
     
-     @Environment(\.modelContext) var modelContext
+    @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
     
     var geoProx: GeometryProxy
-        
+    
     var body: some View {
         ZStack {
             if let profile = userProfile.first, !profile.mustTrys.isEmpty {
-                    ForEach(0..<profile.mustTrys.count, id: \.self) { index in
-                        createCardView(for: index)
-                    }
-                    .onDelete(perform: deleteActivity)
+                ForEach(0..<profile.mustTrys.count, id: \.self) { index in
+                    createCardView(for: index)
+                }
+                .onDelete(perform: deleteActivity)
             } else {
                 VStack {
                     Spacer()
-                         Image("Group")
-                        .resizable()
-                        .scaledToFit()
-                    Text("Let's find some cool spots to add.")
+                    RoundedRectangle(cornerRadius: 20.0)
+                        .fill(.white.opacity(0.75))
+                        .frame(width: geoProx.size.width*0.7, height: geoProx.size.height*0.5)
+                        .overlay (
+                            VStack {
+                                Spacer()
+                                Image("Group")
+                                    .resizable()
+                                    .scaledToFit()
+//                                    .frame(width: geoProx.size.width * 0.6, height: geoProx.size.height * 0.4)
+                                
+                                Text("Let's find some cool spots to add.")
+                                    .font(.system(.title2, design: .serif))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.black)
+                                    .padding(.top, 20)
+                                
+                                Button(action: {
+                                    // Button action
+                                }) {
+                                    Text("Get Started!")
+                                        .font(.system(.title, design: .serif))
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .background(Color.accentColor)
+                                        .cornerRadius(20)
+                                }
+                                .frame(width: geoProx.size.width * 0.6, height: geoProx.size.height * 0.08)
+                                .padding(.top, 20)
+                            }
+                            , alignment: .center)
                     Spacer()
                 }
-                .frame(width: geoProx.size.width*0.7, height: geoProx.size.height*0.7)
             }
         }
         .edgesIgnoringSafeArea(.all)

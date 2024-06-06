@@ -44,12 +44,12 @@ class swiftActivity: Identifiable {
     var price: String?
     var location: swiftLocation?
     var phone: String?
-    var displayPhone: String?
+    var display_phone: String?
     var distance: Double?
     var attributes: swiftAttributes?
     
     // Switched nil -> [] for categories: [swiftCategory]? = []
-    init(id: String? = nil, alias: String? = nil, name: String? = nil, image_url: String? = nil, is_closed: Bool? = nil, url: String? = nil, review_count: Int? = nil, categories: [swiftCategory]? = [], rating: Double? = nil, coordinates: swiftCoordinates? = nil, transactions: [String]? = nil, price: String? = nil, location: swiftLocation? = nil, phone: String? = nil, displayPhone: String? = nil, distance: Double? = nil, attributes: swiftAttributes? = nil) {
+    init(id: String? = nil, alias: String? = nil, name: String? = nil, image_url: String? = nil, is_closed: Bool? = nil, url: String? = nil, review_count: Int? = nil, categories: [swiftCategory]? = [], rating: Double? = nil, coordinates: swiftCoordinates? = nil, transactions: [String]? = nil, price: String? = nil, location: swiftLocation? = nil, phone: String? = nil, display_phone: String? = nil, distance: Double? = nil, attributes: swiftAttributes? = nil) {
         self.id = id
         self.alias = alias
         self.name = name
@@ -64,7 +64,7 @@ class swiftActivity: Identifiable {
         self.price = price
         self.location = location
         self.phone = phone
-        self.displayPhone = displayPhone
+        self.display_phone = display_phone
         self.distance = distance
         self.attributes = attributes
     }
@@ -84,7 +84,6 @@ class swiftActivity: Identifiable {
             self.price = activity.price
             self.location = activity.location.map { swiftLocation(address1: $0.address1, address2: $0.address2, address3: $0.address3, city: $0.city, zipCode: $0.zipCode, country: $0.country, state: $0.state, display_address: $0.display_address) }
             self.phone = activity.phone
-            self.displayPhone = activity.displayPhone
             self.distance = activity.distance
             self.attributes = activity.attributes.map { swiftAttributes(businessTempClosed: $0.businessTempClosed, waitlistReservation: $0.waitlistReservation) }
         }
@@ -137,10 +136,12 @@ class swiftLocation {
 
 @Model
 class swiftAttributes {
+    var business_url: String?
     var businessTempClosed: Bool?
     var waitlistReservation: Bool?
     
-    init(businessTempClosed: Bool? = nil, waitlistReservation: Bool? = nil) {
+    init(business_url: String? = nil,businessTempClosed: Bool? = nil, waitlistReservation: Bool? = nil) {
+        self.business_url = business_url
         self.businessTempClosed = businessTempClosed
         self.waitlistReservation = waitlistReservation
     }

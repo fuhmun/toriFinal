@@ -44,7 +44,6 @@ class Activity: Decodable, Hashable, Equatable {
     var display_phone: String?
     var distance: Double?
     var attributes: Attributes?
-    var business_url: String?
     
     var categoryTitles: String {
             return categories?.compactMap { $0.title }.joined(separator: ", ") ?? ""
@@ -73,6 +72,7 @@ class Location: Decodable {
 }
 
 class Attributes: Decodable {
+    var business_url: String?
     var businessTempClosed: Bool?
     var waitlistReservation: Bool?
 }

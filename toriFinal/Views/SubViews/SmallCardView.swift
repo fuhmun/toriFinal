@@ -16,7 +16,7 @@ struct SmallCardView: View {
     var body: some View {
         VStack {
             if isExpanded {
-                BackSmallCardView()
+                BackSmallCardView(geoProx: geoProx, activityCards: activities)
             } else {
                 FrontSmallCardView(geoProx: geoProx, activity: activities)
             }

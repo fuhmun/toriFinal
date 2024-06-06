@@ -14,6 +14,8 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
     
+    @State private var selectedTab = 0
+    
     init() {
         
         let tabBarAppearance = UITabBarAppearance()
@@ -33,19 +35,22 @@ struct ContentView: View {
     }
     
     var body: some View {
-        TabView{
+        TabView(selection: $selectedTab) {
             SuggestionView()
                 .tabItem{
                     Label("Suggestions",systemImage:"wand.and.stars")
                 }
-            DiscoverView()
+                .tag(0)
+            DiscoverView(selectedTab: $selectedTab)
                 .tabItem{
                     Label("Discover",systemImage:"plus.magnifyingglass")
                 }
-            ProfileView()
+                .tag(1)
+            ProfileView(selectedTab: $selectedTab)
                 .tabItem{
                     Label("Profile",systemImage:"person.fill")
                 }
+                .tag(2)
         }
         .onAppear {
             Task {

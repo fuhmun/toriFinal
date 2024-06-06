@@ -63,20 +63,43 @@ struct BackBigCardView: View {
                                         }
                                         .padding(.bottom)
                                         VStack(alignment: .leading) {
-                                            Text("Address")
-                                                .fontWeight(.bold)
+                                            
+                                                Text("Address")
+                                                    .fontWeight(.bold)
+                                            if let address = activityCards.location?.address1, let city = activityCards.location?.city, let state = activityCards.location?.state {
+                                                    Text("\(address), \(city), \(state)")
+                                                        .font(.subheadline)
+                                                }
                                             
                                         }
                                         .padding(.bottom)
                                         VStack(alignment: .leading) {
                                             Text("Phone")
                                                 .fontWeight(.bold)
-                                            
+                                            if activityCards.display_phone == "" {
+                                                Text("Not available")
+                                                    .font(.subheadline)
+                                            }
+                                            else {
+                                                Button {
+                                                    let tel = "tel://"
+                                                    let formattedString = tel + activityCards.display_phone!
+                                                    guard let url = URL(string: formattedString) else { return }
+                                                    UIApplication.shared.open(url)
+                                                } label: {
+                                                    Text(activityCards.display_phone!)
+                                                        .font(.subheadline)
+                                                }
+                                            }
+//                                            Text(activityCards.display_phone ?? "Not available")
+//                                                    .font(.subheadline)
                                         }
                                         .padding(.bottom)
                                         VStack(alignment: .leading) {
                                             Text("Website")
                                                 .fontWeight(.bold)
+                                            Text(activityCards.business_url ?? "Not available")
+                                                .font(.subheadline)
                                         }
                                     }
                                         .padding()

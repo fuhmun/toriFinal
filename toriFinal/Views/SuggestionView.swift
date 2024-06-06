@@ -27,7 +27,7 @@ struct SuggestionView: View {
                 VStack {
                     SearchBarView(geoProx: geoProx, selectedCategory: $selectedCategory)
                         .padding()
-                    FilterView(selectedCategory: $selectedCategory)
+                    FilterView(selectedCategory: $selectedCategory, geoProx: geoProx)
                         .frame(width: geoProx.size.width*0.85)
                     Spacer(minLength: geoProx.size.height*0.03)
                     ScrollView {

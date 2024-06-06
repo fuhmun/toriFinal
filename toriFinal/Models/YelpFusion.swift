@@ -41,9 +41,10 @@ class Activity: Decodable, Hashable, Equatable {
     var price: String?
     var location: Location?
     var phone: String?
-    var displayPhone: String?
+    var display_phone: String?
     var distance: Double?
     var attributes: Attributes?
+    var business_url: String?
     
     var categoryTitles: String {
             return categories?.compactMap { $0.title }.joined(separator: ", ") ?? ""

@@ -661,13 +661,15 @@ class CategoryManager: ObservableObject {
         print("Incremented count for subcategory \(subCategoryName) in category \(yelpBigCat). New count: \(categories[categoryIndex].subCategories[subCategoryIndex].count)")
     }
     
-    func getTopThree(for categoryName: String) {
+    func getTopThree(for categoryName: String) -> [String] {
         if let category = categories.first(where: { $0.name == categoryName }) {
             let topThree = category.subCategories.sorted { $0.count > $1.count }.prefix(3)
             let topThreeNames = topThree.map { $0.title }
             print("Top three subcategories for \(category.name): \(topThreeNames)")
+            return topThreeNames
         } else {
             print("Category \(categoryName) not found.")
+            return []
         }
     }
 }

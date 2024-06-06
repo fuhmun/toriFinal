@@ -14,7 +14,16 @@ import SwiftData
 struct SuggestionView: View {
     
     @State private var selectedCategory: yelpCategories? = .food
+    @State private var suggestedActive: [ActivityRoot] = []
+    @State private var suggestedLeisure: [ActivityRoot] = []
+    @State private var suggestedRelax: [ActivityRoot] = []
+    @State private var suggestedFood: [ActivityRoot] = []
+    @State private var suggestedLocal: [ActivityRoot] = []
+    @State private var suggestedNight: [ActivityRoot] = []
+    @State private var suggestedSearch: [ActivityRoot] = []
     
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
     
     var body: some View {
         GeometryReader { geoProx in
@@ -32,21 +41,20 @@ struct SuggestionView: View {
                     Spacer(minLength: geoProx.size.height*0.03)
                     ScrollView {
                         Spacer()
-//                        StackedCardView(geoProx: geoProx)
                         if selectedCategory == .activeLife {
-                            activeView(geoProx: geoProx)
+                            activeView(geoProx: geoProx, suggestedActive: suggestedActive)
                         } else if selectedCategory == .arts {
-                            leisureView(geoProx: geoProx)
+                            leisureView(geoProx: geoProx, suggestedLeisure: suggestedLeisure)
                         } else if selectedCategory == .beauty {
-                            relaxView(geoProx: geoProx)
+                            relaxView(geoProx: geoProx, suggestedRelax: suggestedRelax)
                         } else if selectedCategory == .food {
-                            foodView(geoProx: geoProx)
+                            foodView(geoProx: geoProx, suggestedFood: suggestedFood)
                         } else if selectedCategory == .nightLife {
-                            nightView(geoProx: geoProx)
+                            nightView(geoProx: geoProx, suggestedNight: suggestedNight)
                         } else if selectedCategory == .localFlavor {
-                            localView(geoProx: geoProx)
+                            localView(geoProx: geoProx, suggestedLocal: suggestedLocal)
                         } else {
-                            searchView(geoProx: geoProx)
+                            searchView(geoProx: geoProx,suggestedSearch: suggestedSearch)
                         }
                         Spacer()
                     }
@@ -55,7 +63,38 @@ struct SuggestionView: View {
                 // alex sucks at coding
             }
         }
+        .onChange(of: selectedCategory) {
+            
+        }
     }
+    
+//    func fetchActivities(for category: yelpCategories?) {
+//            guard let category = category else { return }
+//            
+//            let yelpAPI = YelpAPI()
+//        
+//        var topThree: [String] = userProfile.first?.likedCategories.getTopThree(for: category.rawValue) ?? []
+//            
+//            Task {
+//                await yelpAPI.retrieveBusiness(cat: [topThree[0]], lim: 3, sort: "distance", rad: 40000, list: RandomCategory())
+//                DispatchQueue.main.async {
+//                    switch category {
+//                    case .activeLife:
+//                        self.suggestedActive = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
+//                    case .arts:
+//                        self.suggestedLeisure = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
+//                    case .beauty:
+//                        self.suggestedRelax = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
+//                    case .food:
+//                        self.suggestedFood = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
+//                    case .nightLife:
+//                        self.suggestedNight = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
+//                    case .localFlavor:
+//                        self.suggestedLocal = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
+//                    }
+//                }
+//            }
+//        }
 }
 
 #Preview {

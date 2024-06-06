@@ -10,6 +10,7 @@ import SwiftUI
 struct searchView: View {
     
     var geoProx: GeometryProxy
+    var suggestedSearch: [ActivityRoot] = []
     
     var body: some View {
         Text("search")

@@ -10,6 +10,7 @@ import SwiftUI
 struct leisureView: View {
     
     var geoProx: GeometryProxy
+    var suggestedLeisure: [ActivityRoot] = []
     
     var body: some View {
         Text("leisure")

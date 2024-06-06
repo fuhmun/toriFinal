@@ -27,7 +27,7 @@ struct FilterView: View {
                         } else {
                             selectedCategory = category
                         }
-                        userProfile.first?.likedCategories.getTopThree(for: category.rawValue)
+//                        userProfile.first?.likedCategories.getTopThree(for: category.rawValue)
                         print(category.rawValue)
                         print(selectedCategory ?? "")
                     } label: {

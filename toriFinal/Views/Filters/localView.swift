@@ -13,7 +13,7 @@ struct localView: View {
     var suggestedLocal: [ActivityRoot] = []
     
     var body: some View {
-        Text("local")
+        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedLocal)
     }
 }
 

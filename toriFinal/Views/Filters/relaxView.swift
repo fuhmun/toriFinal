@@ -13,7 +13,7 @@ struct relaxView: View {
     var suggestedRelax: [ActivityRoot] = []
     
     var body: some View {
-        Text("relax")
+        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedRelax)
     }
 }
 

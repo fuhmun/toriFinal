@@ -13,7 +13,7 @@ struct leisureView: View {
     var suggestedLeisure: [ActivityRoot] = []
     
     var body: some View {
-        Text("leisure")
+        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedLeisure)
     }
 }
 

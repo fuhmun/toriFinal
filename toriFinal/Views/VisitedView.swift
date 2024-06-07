@@ -30,7 +30,6 @@ struct VisitedView: View {
             } else {
                 VStack {
                     Spacer()
-                    VStack {
                         Text("Show me my suggestions!")
                             .font(.system(.title2, design: .serif))
                             .multilineTextAlignment(.center)
@@ -47,10 +46,9 @@ struct VisitedView: View {
                                 .background(Color.accentColor)
                                 .cornerRadius(20)
                         }
-                    }
                     Spacer()
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(width: geoProx.size.width*0.6, height: geoProx.size.height*0.6)
             }
         }
         .edgesIgnoringSafeArea(.all)

@@ -13,7 +13,11 @@ struct activeView: View {
     var suggestedActive: [ActivityRoot] = []
     
     var body: some View {
-        Text("active")
+        if suggestedActive == [] {
+            Text("None")
+        } else {
+            StackedCardView(geoProx: geoProx, suggestedCategories: suggestedActive)
+        }
     }
 }
 

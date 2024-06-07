@@ -10,6 +10,7 @@ import SwiftData
 
 struct DietOption {
     var name: String
+    var diet: Dietary
     var selected: Bool
 }
 
@@ -19,10 +20,12 @@ struct OnBoarding2: View {
     @Binding var selectedTab: Int
     @State var dietSelected: Bool = false
     
+    @State private var selectedDiet: Dietary? = nil
+    
     @State var diets: [[DietOption]] = [
-        [DietOption(name: "Vegan", selected: false), DietOption(name: "Vegetarian", selected: false)],
-        [DietOption(name: "Halal", selected: false), DietOption(name: "Pescetarian", selected: false)],
-        [DietOption(name: "Carnivore", selected: false), DietOption(name: "None", selected: false)]
+        [DietOption(name: "Vegan",diet: .vegan, selected: false), DietOption(name: "Vegetarian",diet: .vegetarian, selected: false)],
+        [DietOption(name: "Halal",diet: .halal, selected: false), DietOption(name: "Pescetarian",diet: .pescetarian, selected: false)],
+        [DietOption(name: "Carnivore",diet: .carnivore, selected: false), DietOption(name: "None",diet: .everything, selected: false)]
     ]
     
     @Environment(\.modelContext) var modelContext
@@ -63,7 +66,7 @@ struct OnBoarding2: View {
                 Text("Got any dietary preferences?")
                     .font(.system(.title, design: .serif))
                     .font(.title)
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .padding(.all)
                     .multilineTextAlignment(.center)
                 
@@ -72,7 +75,9 @@ struct OnBoarding2: View {
                         ForEach(0..<diets[rowIndex].count, id: \.self) { columnIndex in
                             Button(action: {
                                 dietSelected = true
-                                diets[rowIndex][columnIndex].selected.toggle()
+//                                diets[rowIndex][columnIndex].selected.toggle()
+                                selectedDiet = diets[rowIndex][columnIndex].diet
+                                userProfile.first?.diet = diets[rowIndex][columnIndex].diet
                             }) {
                                 Text(diets[rowIndex][columnIndex].name)
                                     .fontWeight(.semibold)
@@ -80,7 +85,7 @@ struct OnBoarding2: View {
                                     .frame(minWidth: 0, maxWidth: .infinity)
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 25)
-                                        .fill(diets[rowIndex][columnIndex].selected ? Color.blue : Color.white))
+                                        .fill(/*diets[rowIndex][columnIndex].selected*/  selectedDiet == diets[rowIndex][columnIndex].diet ? Color.blue : Color.white))
                             }
                         }
                     }
@@ -118,7 +123,6 @@ struct OnBoarding2: View {
             let selectedDiets = diets.flatMap { $0 }
                 .filter { $0.selected }
                 .map { $0.name }
-//            userProfile.first?.diet
         }
     }
     private func initiateDelayedActions() {

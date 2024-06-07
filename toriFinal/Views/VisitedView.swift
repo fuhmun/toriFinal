@@ -57,7 +57,7 @@ struct VisitedView: View {
     @ViewBuilder
     func createCardView(for index: Int) -> some View {
         if let profile = userProfile.first {
-            SmallCardView(activities: profile.visited[index], isExpanded: self.selectedCardIndex == index, geoProx: geoProx)
+            SmallCardVisited(activities: profile.visited[index], isExpanded: self.selectedCardIndex == index, geoProx: geoProx)
                 .offset(y: self.selectedCardIndex == index ? 0 : CGFloat(index) * 60)
                 .rotation3DEffect(
                     .degrees(self.selectedCardIndex == index ? 180 : 0),

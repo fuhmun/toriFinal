@@ -64,6 +64,7 @@
 		168AF6DA2C0F6E71006CE4AF /* searchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168AF6D92C0F6E71006CE4AF /* searchView.swift */; };
 		200EF7D02C1293CE00D08A65 /* SmallCardSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200EF7CF2C1293CE00D08A65 /* SmallCardSuggestion.swift */; };
 		200EF7D22C12C43500D08A65 /* BackSmallVisited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200EF7D12C12C43500D08A65 /* BackSmallVisited.swift */; };
+		200EF7D42C12C71700D08A65 /* SmallCardVisited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200EF7D32C12C71700D08A65 /* SmallCardVisited.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +143,7 @@
 		168AF6D92C0F6E71006CE4AF /* searchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchView.swift; sourceTree = "<group>"; };
 		200EF7CF2C1293CE00D08A65 /* SmallCardSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallCardSuggestion.swift; sourceTree = "<group>"; };
 		200EF7D12C12C43500D08A65 /* BackSmallVisited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackSmallVisited.swift; sourceTree = "<group>"; };
+		200EF7D32C12C71700D08A65 /* SmallCardVisited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallCardVisited.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				168AF6C92C0D078F006CE4AF /* BigCardView */,
 				168AF69A2C0D0603006CE4AF /* SmallCardView.swift */,
 				200EF7CF2C1293CE00D08A65 /* SmallCardSuggestion.swift */,
+				200EF7D32C12C71700D08A65 /* SmallCardVisited.swift */,
 				168AF6CA2C0D07A4006CE4AF /* SmallCardView */,
 			);
 			path = SubViews;
@@ -507,6 +510,7 @@
 				168AF68D2C0D058A006CE4AF /* OnBoarding5.swift in Sources */,
 				168AF68F2C0D0591006CE4AF /* OnBoarding6.swift in Sources */,
 				168AF6BF2C0D071E006CE4AF /* SwiftData.swift in Sources */,
+				200EF7D42C12C71700D08A65 /* SmallCardVisited.swift in Sources */,
 				168AF6D62C0F6E3F006CE4AF /* localView.swift in Sources */,
 				168AF6B72C0D06EB006CE4AF /* Model.swift in Sources */,
 				168AF69D2C0D0629006CE4AF /* FrontSmallCardView.swift in Sources */,

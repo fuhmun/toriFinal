@@ -84,8 +84,9 @@ class swiftActivity: Identifiable {
             self.price = activity.price
             self.location = activity.location.map { swiftLocation(address1: $0.address1, address2: $0.address2, address3: $0.address3, city: $0.city, zipCode: $0.zipCode, country: $0.country, state: $0.state, display_address: $0.display_address) }
             self.phone = activity.phone
+            self.display_phone = activity.display_phone
             self.distance = activity.distance
-            self.attributes = activity.attributes.map { swiftAttributes(businessTempClosed: $0.businessTempClosed, waitlistReservation: $0.waitlistReservation) }
+        self.attributes = activity.attributes.map { swiftAttributes(business_url: $0.business_url, businessTempClosed: $0.businessTempClosed, waitlistReservation: $0.waitlistReservation) }
         }
 }
 

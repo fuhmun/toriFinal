@@ -14,6 +14,9 @@ struct BackSmallCardView: View {
     var geoProx : GeometryProxy
     var activityCards: ActivityRoot
     
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
+    
     var body: some View {
         VStack {
             if let imageUrl = activityCards.activity.image_url {
@@ -41,6 +44,14 @@ struct BackSmallCardView: View {
                                 }
                                 .foregroundStyle(.white)
                                 Spacer()
+                                Button {
+                                    deleteActivityFromMustTry()
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .resizable()
+                                        .foregroundStyle(.red)
+                                        .frame(width: geoProx.size.width*0.05, height: geoProx.size.height*0.03)
+                                }
                             }
                             .padding(geoProx.size.height/30)
                             RoundedRectangle(cornerRadius: 25.0)
@@ -61,21 +72,34 @@ struct BackSmallCardView: View {
                                         }
                                         .padding(.bottom)
                                         VStack(alignment: .leading) {
-                                            Text("Address")
-                                                .fontWeight(.bold)
+                                            
+                                                Text("Address")
+                                                    .fontWeight(.bold)
+                                            if let address = activityCards.activity.location?.address1, let city = activityCards.activity.location?.city, let state = activityCards.activity.location?.state {
+                                                    Text("\(address), \(city), \(state)")
+                                                        .font(.subheadline)
+                                                }
                                             
                                         }
                                         .padding(.bottom)
                                         VStack(alignment: .leading) {
                                             Text("Phone")
                                                 .fontWeight(.bold)
-                                            
+                                            if let phone = activityCards.activity.display_phone {
+                                                    Text("\(phone)")
+                                                        .font(.subheadline)
+                                                }
+//                                            Text(activityCards.activity.display_phone ?? "Not available")
+//                                                .font(.subheadline)
                                         }
                                         .padding(.bottom)
                                         VStack(alignment: .leading) {
                                             Text("Website")
                                                 .fontWeight(.bold)
+                                            Text(activityCards.activity.attributes?.business_url ?? "Not available")
+                                                .font(.subheadline)
                                         }
+
                                     }
                                         .padding()
                                     , alignment: .leading)
@@ -85,6 +109,28 @@ struct BackSmallCardView: View {
             }
         }
         .rotation3DEffect(Angle(degrees: 180), axis: (x: 0.0, y: 1.0, z: 0.0))
+    }
+    private func deleteActivityFromMustTry() {
+        guard let user = userProfile.first else { return }
+        
+        if let index = user.mustTrys.firstIndex(where: {$0.activity.name == activityCards.activity.name}) {
+            let activityToRemove = user.mustTrys.remove(at: index)
+            modelContext.delete(activityToRemove)
+            
+            do {
+                try modelContext.save()
+                print("Activity removed from mustTrys")
+            } catch {
+                print("Failed to save context: \(error)")
+            }
+        }
+        
+        if let profile = userProfile.first {
+            print("User profile mustTrys count: \(profile.mustTrys.count)")
+            for activity in profile.mustTrys {
+                print("Activity name: \(activity.activity.name ?? "Unknown")")
+            }
+        }
     }
 }
 

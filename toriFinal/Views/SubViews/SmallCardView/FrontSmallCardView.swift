@@ -33,14 +33,14 @@ struct FrontSmallCardView: View {
                             TagListView(tags: [test], geoProx: geoProx)
                                 .padding(.leading, geoProx.size.width*0.2)
                                 .frame(width: geoProx.size.width*0.8)
-                            Button {
-                                deleteActivityFromMustTry()
-                            } label: {
-                                Image(systemName: "trash")
-                                    .resizable()
-                                    .foregroundStyle(.red)
-                                    .frame(width: geoProx.size.width*0.05, height: geoProx.size.height*0.05)
-                            }
+//                            Button {
+//                                deleteActivityFromMustTry()
+//                            } label: {
+//                                Image(systemName: "trash")
+//                                    .resizable()
+//                                    .foregroundStyle(.red)
+//                                    .frame(width: geoProx.size.width*0.05, height: geoProx.size.height*0.05)
+//                            }
                         }
                         Spacer()
                     }

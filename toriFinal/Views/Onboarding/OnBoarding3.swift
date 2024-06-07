@@ -5,7 +5,9 @@
 //  Created by Fahad Munawar on 5/24/24.
 //
 
+import Foundation
 import SwiftUI
+import SwiftData
 
 struct MoneyOption {
     var amount: String
@@ -17,11 +19,16 @@ struct OnBoarding3: View {
     let indexRectangle: Int = 2
     @Binding var selectedTab: Int
     @State var moneySelected: Bool = false
+    @State private var priceSelected: String? = nil
     
     @State var money: [[MoneyOption]] = [
         [MoneyOption(amount: "$", selected: false), MoneyOption(amount: "$$", selected: false)],
         [MoneyOption(amount: "$$$", selected: false), MoneyOption(amount: "$$$$", selected: false)]
     ]
+    
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
+    
     var body: some View {
         VStack {
             HStack {
@@ -56,7 +63,7 @@ struct OnBoarding3: View {
                 Text("What's your budget vibe?")
                     .font(.system(.title, design: .serif))
                     .font(.title)
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.all)
                 
@@ -66,6 +73,8 @@ struct OnBoarding3: View {
                             Button(action: {
                                 moneySelected = true
                                 money[rowIndex][columnIndex].selected.toggle()
+                                priceSelected = money[rowIndex][columnIndex].amount
+                                userProfile.first?.priceLimit = money[rowIndex][columnIndex].amount
                             }) {
                                 Text(money[rowIndex][columnIndex].amount)
                                     .fontWeight(.semibold)
@@ -73,7 +82,7 @@ struct OnBoarding3: View {
                                     .frame(minWidth: 0, maxWidth: .infinity)
                                     .padding()
                                     .background(RoundedRectangle(cornerRadius: 25)
-                                        .fill(money[rowIndex][columnIndex].selected ? Color.blue : Color.white))
+                                        .fill(priceSelected ==  money[rowIndex][columnIndex].amount ? Color.blue : Color.white))
                             }
                         }
                     }

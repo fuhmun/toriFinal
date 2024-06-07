@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SmokeOption {
     var image: String
@@ -23,6 +24,10 @@ struct OnBoarding5: View {
         SmokeOption(image: "smoking", selected: false),
         SmokeOption(image: "smoking", selected: false)
     ]
+    
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
+    
     var body: some View {
         VStack {
             HStack {
@@ -66,6 +71,7 @@ struct OnBoarding5: View {
                     Button(action: {
                         smokeSelected = true
                         selectSmoke(index: 0)
+                        userProfile.first?.smoker = true
                     }) {
                         configurationForButton(smoke: smoke[0], geometry: geometry)
                     }
@@ -74,6 +80,7 @@ struct OnBoarding5: View {
                     Button(action: {
                         smokeSelected = true
                         selectSmoke(index: 1)
+                        userProfile.first?.smoker = false
                     }) {
                         ZStack {
                             
@@ -91,6 +98,7 @@ struct OnBoarding5: View {
                 
                 Button(action: {
                     if smokeSelected {
+                        userProfile.first?.didOnboarding = true
                         initiateDelayedActions()
                     }
                 }, label: {

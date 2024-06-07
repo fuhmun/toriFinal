@@ -60,13 +60,14 @@ struct OnBoarding: View {
                                 .padding(.bottom)
                                 .tag(4)
                         }
-//                        else if selectedTab == 5 {
+                        else if selectedTab == 5 {
+                            ContentView()
 //                            OnBoarding6(/*geometry: geometry,*/ /*selectedTab: $selectedTab*/)
 //                                .tabItem {
 //                                    Label("One", systemImage: "1.circle")
 //                                }
 //                                .padding(.bottom)
-//                        }
+                        }
                     }
                 }
                 

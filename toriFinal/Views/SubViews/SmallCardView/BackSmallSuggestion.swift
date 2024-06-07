@@ -51,30 +51,52 @@ struct BackSmallSuggestion: View {
                                         VStack(alignment: .leading) {
                                             Text("Hours")
                                                 .fontWeight(.bold)
+                                                .foregroundColor(.black)
                                             Text("Sunday")
+                                                .foregroundColor(.black)
                                             Text("Monday")
+                                                .foregroundColor(.black)
                                             Text("Tuesday")
+                                                .foregroundColor(.black)
                                             Text("Wednesday")
+                                                .foregroundColor(.black)
                                             Text("Thursday")
+                                                .foregroundColor(.black)
                                             Text("Friday")
+                                                .foregroundColor(.black)
                                             Text("Saturday")
+                                                .foregroundColor(.black)
                                         }
                                         .padding(.bottom)
                                         VStack(alignment: .leading) {
                                             Text("Address")
                                                 .fontWeight(.bold)
-                                            
+                                                .foregroundColor(.black)
+                                            if let address = activityCards.location?.address1, let city = activityCards.location?.city, let state = activityCards.location?.state {
+                                                Text("\(address), \(city), \(state)")
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.black)
+                                            }
                                         }
                                         .padding(.bottom)
                                         VStack(alignment: .leading) {
                                             Text("Phone")
                                                 .fontWeight(.bold)
-                                            
+                                                .foregroundColor(.black)
+                                            if let phone = activityCards.display_phone {
+                                                Text("\(phone)")
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.black)
+                                            }
                                         }
                                         .padding(.bottom)
                                         VStack(alignment: .leading) {
                                             Text("Website")
                                                 .fontWeight(.bold)
+                                                .foregroundColor(.black)
+                                            Text(activityCards.attributes?.business_url ?? "Not available")
+                                                .font(.subheadline)
+                                                .foregroundColor(.black)
                                         }
                                     }
                                         .padding()
@@ -82,6 +104,7 @@ struct BackSmallSuggestion: View {
                         }
                         ,alignment: .topLeading
                     )
+                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
             }
         }
         .rotation3DEffect(Angle(degrees: 180), axis: (x: 0.0, y: 1.0, z: 0.0))

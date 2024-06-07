@@ -28,39 +28,25 @@ struct MustTryView: View {
             } else {
                 VStack {
                     Spacer()
-                    RoundedRectangle(cornerRadius: 20.0)
-                        .fill(.white.opacity(0.75))
-                        .frame(width: geoProx.size.width*0.75, height: geoProx.size.height*0.6)
-                        .overlay (
-                            VStack {
-                                Spacer()
-                                Image("Group")
-                                    .resizable()
-                                    .frame(width: geoProx.size.width*0.6, height: geoProx.size.height*0.25)
-//                                    .frame(width: geoProx.size.width * 0.6, height: geoProx.size.height * 0.4)
-                                
-                                Text("Let's find some cool spots to add.")
-                                    .font(.system(.title2, design: .serif))
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(.black)
-                                    .padding(.top, 20)
-                                
-                                Button(action: {
-                                    selectedTab = 1
-                                }) {
-                                    Text("Get Started!")
-                                        .font(.system(.title, design: .serif))
-                                        .foregroundColor(.white)
-                                        .padding()
-                                        .background(Color.accentColor)
-                                        .cornerRadius(20)
-                                }
-                                .frame(width: geoProx.size.width * 0.6, height: geoProx.size.height * 0.08)
-                                .padding(.top, 20)
-                                Spacer()
-                            }
-                            , alignment: .center)
+                        Text("Let's find some cool spots to add.")
+                            .font(.system(.title2, design: .serif))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.white)
+                            .padding(.top, 20)
+                        
+                        Button(action: {
+                            selectedTab = 1
+                        }) {
+                            Text("Get Started!")
+                                .font(.system(.title, design: .serif))
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.accentColor)
+                                .cornerRadius(20)
+                        }
+                    Spacer()
                 }
+                .frame(width: geoProx.size.width*0.6, height: geoProx.size.height*0.6)
             }
         }
         .edgesIgnoringSafeArea(.all)

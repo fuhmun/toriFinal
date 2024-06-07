@@ -242,7 +242,7 @@ class YelpAPI : ObservableObject {
                     }
                 } else {
                     Task {
-                        await self.retrieveBusiness(cat: [list.activities.randomElement() ?? "food"], lim: 10, sort: "distance", rad: 40000, list: list)
+                        await self.retrieveBusiness(cat: [list.activities.randomElement() ?? "food"], lim: 3, sort: "distance", rad: 40000, list: list)
                     }
                 }
             } catch {

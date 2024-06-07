@@ -53,7 +53,7 @@ struct OnBoarding1: View {
                     "First",
                     text: $firstName
                 )
-                .foregroundStyle(.black)
+                .foregroundStyle(.primary)
                 .background(Color.gray)
                 .multilineTextAlignment(.center)
                 .disableAutocorrection(true)
@@ -70,7 +70,7 @@ struct OnBoarding1: View {
                     "Last",
                     text: $lastName
                 )
-                .foregroundStyle(.black)
+                .foregroundStyle(.primary)
                 .background(Color.gray)
                 .multilineTextAlignment(.center)
                 .disableAutocorrection(true)

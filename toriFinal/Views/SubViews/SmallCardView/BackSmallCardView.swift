@@ -100,7 +100,7 @@ struct BackSmallCardView: View {
                                                 .font(.subheadline)
                                         }
 
-                                    }
+                                    }.foregroundStyle(.black)
                                         .padding()
                                     , alignment: .leading)
                         }

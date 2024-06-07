@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		167FBD012C128B8C0097B752 /* FrontSmallSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167FBD002C128B8C0097B752 /* FrontSmallSuggestion.swift */; };
+		167FBD032C128B970097B752 /* BackSmallSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167FBD022C128B970097B752 /* BackSmallSuggestion.swift */; };
 		168AF64D2C0CEC96006CE4AF /* toriFinalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168AF64C2C0CEC96006CE4AF /* toriFinalApp.swift */; };
 		168AF64F2C0CEC96006CE4AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168AF64E2C0CEC96006CE4AF /* ContentView.swift */; };
 		168AF6512C0CEC97006CE4AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 168AF6502C0CEC97006CE4AF /* Assets.xcassets */; };
@@ -80,6 +82,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		167FBD002C128B8C0097B752 /* FrontSmallSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontSmallSuggestion.swift; sourceTree = "<group>"; };
+		167FBD022C128B970097B752 /* BackSmallSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackSmallSuggestion.swift; sourceTree = "<group>"; };
 		168AF6492C0CEC96006CE4AF /* toriFinal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = toriFinal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		168AF64C2C0CEC96006CE4AF /* toriFinalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toriFinalApp.swift; sourceTree = "<group>"; };
 		168AF64E2C0CEC96006CE4AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -285,6 +289,8 @@
 			children = (
 				168AF69C2C0D0629006CE4AF /* FrontSmallCardView.swift */,
 				168AF69E2C0D063F006CE4AF /* BackSmallCardView.swift */,
+				167FBD002C128B8C0097B752 /* FrontSmallSuggestion.swift */,
+				167FBD022C128B970097B752 /* BackSmallSuggestion.swift */,
 			);
 			path = SmallCardView;
 			sourceTree = "<group>";
@@ -479,7 +485,9 @@
 				168AF6872C0D0575006CE4AF /* OnBoarding2.swift in Sources */,
 				168AF64F2C0CEC96006CE4AF /* ContentView.swift in Sources */,
 				168AF6D82C0F6E49006CE4AF /* nightView.swift in Sources */,
+				167FBD032C128B970097B752 /* BackSmallSuggestion.swift in Sources */,
 				168AF6A92C0D0684006CE4AF /* TagListView.swift in Sources */,
+				167FBD012C128B8C0097B752 /* FrontSmallSuggestion.swift in Sources */,
 				168AF67D2C0D0537006CE4AF /* ProfileView.swift in Sources */,
 				168AF6BB2C0D0707006CE4AF /* CategoryIconView.swift in Sources */,
 				168AF6C52C0D0747006CE4AF /* Constants.swift in Sources */,

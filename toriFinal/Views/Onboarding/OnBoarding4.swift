@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DrinkOption {
     var image: String
@@ -22,6 +23,9 @@ struct OnBoarding4: View {
         DrinkOption(image: "glass", selected: false),
         DrinkOption(image: "glass", selected: false)
     ]
+    
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
     
     var body: some View {
         VStack {
@@ -65,6 +69,7 @@ struct OnBoarding4: View {
                     Button(action: {
                         drinkSelected = true
                         selectDrink(index: 0)
+                        userProfile.first?.drinker = true
                     }) {
                         configurationForButton(drink: drink[0], geometry: geometry)
                     }
@@ -73,6 +78,7 @@ struct OnBoarding4: View {
                     Button(action: {
                         drinkSelected = true
                         selectDrink(index: 1)
+                        userProfile.first?.drinker = false
                     }) {
                         ZStack {
                             

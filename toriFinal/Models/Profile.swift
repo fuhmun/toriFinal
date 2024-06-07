@@ -13,11 +13,12 @@ import UIKit
 
 @Model
 class Profile: Identifiable {
+    var didOnboarding: Bool
     var id: UUID
     var firstName: String
     var lastName: String
     var diet: Dietary
-    var priceLimit: Int
+    var priceLimit: String
     var drinker: Bool
     var smoker: Bool
     var likes: [ActivityRoot]
@@ -28,7 +29,8 @@ class Profile: Identifiable {
     var likedCategories : CategoryManager
 //    var selectedImage: UIImage?
 
-    init(id: UUID = UUID(), firstName: String = "", lastName: String = "", diet: Dietary = .everything, priceLimit: Int = 2, drinker: Bool = false, smoker: Bool = false, likes: [ActivityRoot] = [], dislikes: [ActivityRoot] = [], favorites: [ActivityRoot] = [], mustTrys: [ActivityRoot] = [], visited: [ActivityRoot] = [], likedCategories: CategoryManager = CategoryManager()) {
+    init(didOnboarding: Bool = false, id: UUID = UUID(), firstName: String = "", lastName: String = "", diet: Dietary = .everything, priceLimit: String = "", drinker: Bool = false, smoker: Bool = false, likes: [ActivityRoot] = [], dislikes: [ActivityRoot] = [], favorites: [ActivityRoot] = [], mustTrys: [ActivityRoot] = [], visited: [ActivityRoot] = [], likedCategories: CategoryManager = CategoryManager()) {
+        self.didOnboarding = didOnboarding
         self.id = id
         self.firstName = firstName
         self.lastName = lastName

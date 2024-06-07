@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SplashScreenView: View {
     
@@ -13,10 +14,17 @@ struct SplashScreenView: View {
     @State private var toriBlink: Bool = false
     @State private var imageOpacity: Double = 0.0
     
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
+    
     var body: some View {
         ZStack {
             if self.onScreen {
-                ContentView()
+                if userProfile.first?.didOnboarding == false {
+                    OnBoarding()
+                } else {
+                    ContentView()
+                }
             } else {
                 Image("Background")
                     .resizable()

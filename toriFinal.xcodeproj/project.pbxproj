@@ -63,6 +63,7 @@
 		168AF6D82C0F6E49006CE4AF /* nightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168AF6D72C0F6E49006CE4AF /* nightView.swift */; };
 		168AF6DA2C0F6E71006CE4AF /* searchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168AF6D92C0F6E71006CE4AF /* searchView.swift */; };
 		200EF7D02C1293CE00D08A65 /* SmallCardSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200EF7CF2C1293CE00D08A65 /* SmallCardSuggestion.swift */; };
+		200EF7D22C12C43500D08A65 /* BackSmallVisited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200EF7D12C12C43500D08A65 /* BackSmallVisited.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +141,7 @@
 		168AF6D72C0F6E49006CE4AF /* nightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nightView.swift; sourceTree = "<group>"; };
 		168AF6D92C0F6E71006CE4AF /* searchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchView.swift; sourceTree = "<group>"; };
 		200EF7CF2C1293CE00D08A65 /* SmallCardSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallCardSuggestion.swift; sourceTree = "<group>"; };
+		200EF7D12C12C43500D08A65 /* BackSmallVisited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackSmallVisited.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +296,7 @@
 				168AF69E2C0D063F006CE4AF /* BackSmallCardView.swift */,
 				167FBD002C128B8C0097B752 /* FrontSmallSuggestion.swift */,
 				167FBD022C128B970097B752 /* BackSmallSuggestion.swift */,
+				200EF7D12C12C43500D08A65 /* BackSmallVisited.swift */,
 			);
 			path = SmallCardView;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				168AF6B52C0D06D0006CE4AF /* LocationManager.swift in Sources */,
 				168AF6952C0D05C7006CE4AF /* CardView.swift in Sources */,
 				168AF6992C0D05F8006CE4AF /* BackBigCardView.swift in Sources */,
+				200EF7D22C12C43500D08A65 /* BackSmallVisited.swift in Sources */,
 				168AF6A12C0D0646006CE4AF /* FilterView.swift in Sources */,
 				168AF6D02C0F6E1B006CE4AF /* leisureView.swift in Sources */,
 				168AF6AD2C0D06A0006CE4AF /* LoadingView.swift in Sources */,

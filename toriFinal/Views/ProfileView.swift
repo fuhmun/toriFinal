@@ -22,9 +22,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.selectedImage = image
-//                userProfile.first?.profilePicture = image.jpegData(compressionQuality: 0.8)
             }
-            
             parent.presentationMode.wrappedValue.dismiss()
         }
     }
@@ -32,6 +30,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     var sourceType: UIImagePickerController.SourceType
     @Binding var selectedImage: UIImage?
     @Environment(\.presentationMode) var presentationMode
+    var onImagePicked: ((UIImage) -> Void)?
     
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
@@ -63,11 +62,11 @@ struct ProfileView: View {
     
     init(selectedTab: Binding<Int>) {
         self._selectedTab = selectedTab
-            UISegmentedControl.appearance().selectedSegmentTintColor = .accent
-            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
-            UISegmentedControl.appearance().backgroundColor = UIColor(.white.opacity(0.1))
-        }
+        UISegmentedControl.appearance().selectedSegmentTintColor = .accent
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+        UISegmentedControl.appearance().backgroundColor = UIColor(.white.opacity(0.1))
+    }
     
     var body: some View {
         GeometryReader { geoProx in
@@ -103,14 +102,21 @@ struct ProfileView: View {
                                         .frame(width: geoProx.size.width * 0.2, height: geoProx.size.width * 0.2)
                                         .overlay(Circle().stroke(Color.white, lineWidth: 2))
                                         .shadow(radius: 5)
+                                } else if let imageData = userProfile.first?.profilePicture, let uiImage = UIImage(data: imageData) {
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .clipShape(Circle())
+                                        .frame(width: geoProx.size.width * 0.2, height: geoProx.size.width * 0.2)
+                                        .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                                        .shadow(radius: 5)
                                 } else {
                                     Circle()
                                         .fill(Color.white)
                                         .frame(width: geoProx.size.width * 0.2, height: geoProx.size.width * 0.2)
                                         .overlay(
                                             Text("\(userProfile.first?.firstName.prefix(1) ?? " ")\(userProfile.first?.lastName.prefix(1) ?? " ")")
-                                                    .font(.title2)
-                                                    .fontWeight(.bold))
+                                                .font(.title2)
+                                                .fontWeight(.bold))
                                         .foregroundColor(.gray)
                                 }
                             }
@@ -120,16 +126,16 @@ struct ProfileView: View {
                                         sourceType = .photoLibrary
                                         showImagePicker = true
                                     },
-//                                    .default(Text("Camera")) {
-//                                        sourceType = .camera
-//                                        showImagePicker = true
-//                                    },
-                                    .cancel()
+                                    //                                    .default(Text("Camera")) {
+                                    //                                        sourceType = .camera
+                                    //                                        showImagePicker = true
+                                    //                                    },
+                                        .cancel()
                                 ])
                             })
                             .sheet(isPresented: $showImagePicker) {
                                 ImagePicker(sourceType: sourceType, selectedImage: $selectedImage)
-                                    .ignoresSafeArea()
+                                .ignoresSafeArea()
                             }
                             .padding(.leading)
                             HStack {
@@ -146,7 +152,7 @@ struct ProfileView: View {
                         Picker(selection: $selected, label: Text("")) {
                             Text("Visited").tag(1)
                             Text("Favorites").tag(2)
-//                            Text("Favorites").tag(3)
+                            //                            Text("Favorites").tag(3)
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .foregroundStyle(.white)
@@ -167,12 +173,25 @@ struct ProfileView: View {
                             else if selected == 2 {
                                 MustTryView(selectedTab: $selectedTab, geoProx: geoProx)
                             }
-//                            else {
-//                                FavoritesView(geoProx: geoProx)
-//                            }
+                            //                            else {
+                            //                                FavoritesView(geoProx: geoProx)
+                            //                            }
                         }
                         Spacer()
                         
+                    }
+                }
+            }
+            .onChange(of: selectedImage) {
+                if let imageData = selectedImage?.jpegData(compressionQuality: 0.8) {
+                    if let profile = userProfile.first {
+                        profile.profilePicture = imageData
+                        do {
+                            try modelContext.save()
+                            print("Successfully saved Image")
+                        } catch {
+                            print("Failed to save image data: \(error)")
+                        }
                     }
                 }
             }

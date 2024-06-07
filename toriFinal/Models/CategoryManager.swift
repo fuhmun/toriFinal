@@ -646,7 +646,6 @@ class CategoryManager: ObservableObject {
         ]
     }
     
-    
     func incrementSubCategory(yelpBigCat: String, subCategoryName: String) {
         guard let categoryIndex = categories.firstIndex(where: { $0.name == yelpBigCat }) else {
             print("Category \(yelpBigCat) not found.")
@@ -664,7 +663,7 @@ class CategoryManager: ObservableObject {
     func getTopThree(for categoryName: String) -> [String] {
         if let category = categories.first(where: { $0.name == categoryName }) {
             let topThree = category.subCategories.sorted { $0.count > $1.count }.prefix(3)
-            let topThreeNames = topThree.map { $0.title }
+            let topThreeNames = topThree.map { $0.alias }
             print("Top three subcategories for \(category.name): \(topThreeNames)")
             return topThreeNames
         } else {

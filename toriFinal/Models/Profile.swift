@@ -27,9 +27,10 @@ class Profile: Identifiable {
     var mustTrys: [ActivityRoot]
     var visited: [ActivityRoot]
     var likedCategories : CategoryManager
+    var profilePicture: Data?
 //    var selectedImage: UIImage?
 
-    init(didOnboarding: Bool = false, id: UUID = UUID(), firstName: String = "", lastName: String = "", diet: Dietary = .everything, priceLimit: String = "", drinker: Bool = false, smoker: Bool = false, likes: [ActivityRoot] = [], dislikes: [ActivityRoot] = [], favorites: [ActivityRoot] = [], mustTrys: [ActivityRoot] = [], visited: [ActivityRoot] = [], likedCategories: CategoryManager = CategoryManager()) {
+    init(didOnboarding: Bool = false, id: UUID = UUID(), firstName: String = "", lastName: String = "", diet: Dietary = .everything, priceLimit: String = "", drinker: Bool = false, smoker: Bool = false, likes: [ActivityRoot] = [], dislikes: [ActivityRoot] = [], favorites: [ActivityRoot] = [], mustTrys: [ActivityRoot] = [], visited: [ActivityRoot] = [], likedCategories: CategoryManager = CategoryManager(), profilePicture: Data? = nil) {
         self.didOnboarding = didOnboarding
         self.id = id
         self.firstName = firstName
@@ -44,6 +45,7 @@ class Profile: Identifiable {
         self.mustTrys = mustTrys
         self.visited = visited
         self.likedCategories = likedCategories
+        self.profilePicture = profilePicture
     }
 }
 

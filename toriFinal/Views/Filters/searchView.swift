@@ -10,10 +10,14 @@ import SwiftUI
 struct searchView: View {
     
     var geoProx: GeometryProxy
-    var suggestedSearch: [ActivityRoot] = []
+    var suggestedSearch: [Activity] = []
     
     var body: some View {
-        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedSearch)
+        if suggestedSearch == [] {
+            LoadingView()
+        } else {
+            StackedCardView(geoProx: geoProx, suggestedCategories: suggestedSearch)
+        }
     }
 }
 

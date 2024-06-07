@@ -12,7 +12,7 @@ struct StackedCardView: View {
     @State private var selectedCardIndex: Int? = nil
     
     var geoProx: GeometryProxy
-    var suggestedCategories: [ActivityRoot]
+    var suggestedCategories: [Activity]
     
     var body: some View {
         ZStack {
@@ -25,7 +25,7 @@ struct StackedCardView: View {
     
     @ViewBuilder
     func createStackedView(for index: Int) -> some View {
-        SmallCardView(activities: suggestedCategories[index], isExpanded: self.selectedCardIndex == index, geoProx: geoProx)
+        SmallCardSuggestion(activities: suggestedCategories[index], isExpanded: self.selectedCardIndex == index, geoProx: geoProx)
             .offset(y: self.selectedCardIndex == index ? 0 : CGFloat(index) * geoProx.size.height*0.275)
             .rotation3DEffect(
                 .degrees(self.selectedCardIndex == index ? 180 : 0),

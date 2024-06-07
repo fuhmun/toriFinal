@@ -10,10 +10,14 @@ import SwiftUI
 struct localView: View {
     
     var geoProx: GeometryProxy
-    var suggestedLocal: [ActivityRoot] = []
+    var suggestedLocal: [Activity] = []
     
     var body: some View {
-        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedLocal)
+        if suggestedLocal == [] {
+            LoadingView()
+        } else {
+            StackedCardView(geoProx: geoProx, suggestedCategories: suggestedLocal)
+        }
     }
 }
 

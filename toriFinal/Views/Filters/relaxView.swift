@@ -10,10 +10,14 @@ import SwiftUI
 struct relaxView: View {
     
     var geoProx: GeometryProxy
-    var suggestedRelax: [ActivityRoot] = []
+    var suggestedRelax: [Activity] = []
     
     var body: some View {
-        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedRelax)
+        if suggestedRelax == [] {
+            LoadingView()
+        } else {
+            StackedCardView(geoProx: geoProx, suggestedCategories: suggestedRelax)
+        }
     }
 }
 

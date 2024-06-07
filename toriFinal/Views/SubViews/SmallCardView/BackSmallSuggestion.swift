@@ -12,11 +12,11 @@ import SwiftData
 
 struct BackSmallSuggestion: View {
     var geoProx : GeometryProxy
-    var activityCards: ActivityRoot
+    var activityCards: Activity
     
     var body: some View {
         VStack {
-            if let imageUrl = activityCards.activity.image_url {
+            if let imageUrl = activityCards.image_url {
                 AnimatedImage(url: URL(string: imageUrl))
                     .resizable()
                     .frame(width: geoProx.size.width/1.25, height: geoProx.size.height/1.25)
@@ -27,14 +27,14 @@ struct BackSmallSuggestion: View {
                         VStack {
                             HStack {
                                 VStack(alignment: .leading) {
-                                    if let name = activityCards.activity.name {
+                                    if let name = activityCards.name {
                                         Text(name)
                                             .font(.title3)
                                     }
-                                    if let city = activityCards.activity.location?.city, let state = activityCards.activity.location?.state {
+                                    if let city = activityCards.location?.city, let state = activityCards.location?.state {
                                         Text("\(city), \(state)")
                                     }
-                                    if let distance = activityCards.activity.distance {
+                                    if let distance = activityCards.distance {
                                         let miles = distance * 0.000621371
                                         Text(String(format: "%.2f mi", miles))
                                     }

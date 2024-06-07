@@ -52,7 +52,6 @@ struct FrontBigCardView: View {
                                         .foregroundColor(.white)
                                 }
                             }
-                            
                             .foregroundStyle(.white)
                             Spacer()
                             Button {

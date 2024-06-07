@@ -62,6 +62,7 @@
 		168AF6D62C0F6E3F006CE4AF /* localView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168AF6D52C0F6E3F006CE4AF /* localView.swift */; };
 		168AF6D82C0F6E49006CE4AF /* nightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168AF6D72C0F6E49006CE4AF /* nightView.swift */; };
 		168AF6DA2C0F6E71006CE4AF /* searchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168AF6D92C0F6E71006CE4AF /* searchView.swift */; };
+		200EF7D02C1293CE00D08A65 /* SmallCardSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200EF7CF2C1293CE00D08A65 /* SmallCardSuggestion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,7 @@
 		168AF6D52C0F6E3F006CE4AF /* localView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localView.swift; sourceTree = "<group>"; };
 		168AF6D72C0F6E49006CE4AF /* nightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nightView.swift; sourceTree = "<group>"; };
 		168AF6D92C0F6E71006CE4AF /* searchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchView.swift; sourceTree = "<group>"; };
+		200EF7CF2C1293CE00D08A65 /* SmallCardSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallCardSuggestion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +272,7 @@
 				168AF6942C0D05C7006CE4AF /* CardView.swift */,
 				168AF6C92C0D078F006CE4AF /* BigCardView */,
 				168AF69A2C0D0603006CE4AF /* SmallCardView.swift */,
+				200EF7CF2C1293CE00D08A65 /* SmallCardSuggestion.swift */,
 				168AF6CA2C0D07A4006CE4AF /* SmallCardView */,
 			);
 			path = SubViews;
@@ -486,6 +489,7 @@
 				168AF64F2C0CEC96006CE4AF /* ContentView.swift in Sources */,
 				168AF6D82C0F6E49006CE4AF /* nightView.swift in Sources */,
 				167FBD032C128B970097B752 /* BackSmallSuggestion.swift in Sources */,
+				200EF7D02C1293CE00D08A65 /* SmallCardSuggestion.swift in Sources */,
 				168AF6A92C0D0684006CE4AF /* TagListView.swift in Sources */,
 				167FBD012C128B8C0097B752 /* FrontSmallSuggestion.swift in Sources */,
 				168AF67D2C0D0537006CE4AF /* ProfileView.swift in Sources */,

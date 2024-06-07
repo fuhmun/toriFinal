@@ -13,7 +13,7 @@ struct nightView: View {
     var suggestedNight: [ActivityRoot] = []
     
     var body: some View {
-        Text("night")
+        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedNight)
     }
 }
 

@@ -11,9 +11,8 @@ struct StackedCardView: View {
 
     @State private var selectedCardIndex: Int? = nil
     
-    @State private var suggestedCategories: [ActivityRoot] = []
-    
     var geoProx: GeometryProxy
+    var suggestedCategories: [ActivityRoot]
     
     var body: some View {
         ZStack {

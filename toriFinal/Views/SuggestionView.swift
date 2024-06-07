@@ -64,37 +64,46 @@ struct SuggestionView: View {
             }
         }
         .onChange(of: selectedCategory) {
-            
+            fetchActivities(for: selectedCategory)
         }
     }
     
-//    func fetchActivities(for category: yelpCategories?) {
-//            guard let category = category else { return }
-//            
-//            let yelpAPI = YelpAPI()
-//        
-//        var topThree: [String] = userProfile.first?.likedCategories.getTopThree(for: category.rawValue) ?? []
-//            
-//            Task {
-//                await yelpAPI.retrieveBusiness(cat: [topThree[0]], lim: 3, sort: "distance", rad: 40000, list: RandomCategory())
-//                DispatchQueue.main.async {
-//                    switch category {
-//                    case .activeLife:
-//                        self.suggestedActive = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
-//                    case .arts:
-//                        self.suggestedLeisure = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
-//                    case .beauty:
-//                        self.suggestedRelax = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
-//                    case .food:
-//                        self.suggestedFood = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
-//                    case .nightLife:
-//                        self.suggestedNight = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
-//                    case .localFlavor:
-//                        self.suggestedLocal = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: $0) }
-//                    }
-//                }
-//            }
-//        }
+    func fetchActivities(for category: yelpCategories?) {
+        guard let category = category else { return }
+        
+        let yelpAPI = YelpAPI()
+        
+        Task {
+            
+            var topThree: [String] = userProfile.first?.likedCategories.getTopThree(for: category.rawValue) ?? []
+            
+            guard !topThree.isEmpty else {
+                        print("No categories found for \(category.rawValue)")
+                        return
+            }
+            
+            await yelpAPI.retrieveBusiness(cat: [topThree[0]], lim: 3, sort: "distance", rad: 40000, list: RandomCategory())
+            DispatchQueue.main.async {
+                print("Fetched \(yelpAPI.foundActivities.count) activities for category \(category.rawValue)")
+                switch category {
+                case .activeLife:
+                    self.suggestedActive = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
+                case .arts:
+                    self.suggestedLeisure = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
+                case .beauty:
+                    self.suggestedRelax = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
+                case .food:
+                    self.suggestedFood = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
+                case .nightLife:
+                    self.suggestedNight = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
+                case .localFlavor:
+                    self.suggestedLocal = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
+                }
+                print("Updated suggested activities for \(category.rawValue)")
+                print(suggestedActive)
+            }
+        }
+    }
 }
 
 #Preview {

@@ -13,7 +13,7 @@ struct searchView: View {
     var suggestedSearch: [ActivityRoot] = []
     
     var body: some View {
-        Text("search")
+        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedSearch)
     }
 }
 

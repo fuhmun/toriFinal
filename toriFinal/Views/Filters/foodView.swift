@@ -13,7 +13,7 @@ struct foodView: View {
     var suggestedFood: [ActivityRoot] = []
     
     var body: some View {
-        Text("food")
+        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedFood)
     }
 }
 

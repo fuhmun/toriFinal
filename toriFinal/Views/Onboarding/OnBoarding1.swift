@@ -92,13 +92,14 @@ struct OnBoarding1: View {
                     Text("Next")
                         .font(.system(.title, design: .serif))
                         .foregroundStyle(Color.white)
-                        .frame(width: geometry.size.width/3.0, height: geometry.size.height/11)
+                        .frame(width: geometry.size.width/2.2, height: geometry.size.height/11)
                         .background(RoundedRectangle(cornerRadius: 25.0, style: .continuous)
                             .fill(firstName != "" && lastName != "" ? Color.blue : Color.red))
                 }
                 
                 .buttonStyle(ScaleButtonStyle())
-                .padding(.bottom)
+                .padding(.bottom, geometry.size.height * 0.05)
+                
             }
             .padding(.top)
 //            .frame(width: geometry.size.width/1.2, height: geometry.size.height/1.2)

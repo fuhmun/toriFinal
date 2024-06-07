@@ -98,20 +98,21 @@ struct OnBoarding5: View {
                 
                 Button(action: {
                     if smokeSelected {
-                        userProfile.first?.didOnboarding = true
                         initiateDelayedActions()
+                        
+                        userProfile.first?.didOnboarding = true
                     }
                 }, label: {
                     Text("Confirm")
                         .font(.system(.title, design: .serif))
                         .foregroundStyle(Color.white)
-                        .frame(width: geometry.size.width/3, height: geometry.size.height/11)
+                        .frame(width: geometry.size.width/2.2, height: geometry.size.height/11)
                         .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
                         .background(RoundedRectangle(cornerRadius: 25.0, style: .continuous)
                             .fill(smokeSelected ? Color.blue : Color.red))
                 })
                 .buttonStyle(ScaleButtonStyle())
-                .padding(.vertical)
+                .padding(.bottom, geometry.size.height * 0.05)
                 
             }
             .padding(.top)

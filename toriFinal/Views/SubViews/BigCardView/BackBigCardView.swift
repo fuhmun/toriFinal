@@ -106,6 +106,7 @@ struct BackBigCardView: View {
                                     , alignment: .leading)
                         }
                         ,alignment: .topLeading
+                            
                     )
             }
         }

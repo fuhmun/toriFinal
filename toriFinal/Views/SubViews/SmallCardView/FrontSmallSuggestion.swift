@@ -37,12 +37,12 @@ struct FrontSmallSuggestion: View {
                                 .frame(width: geoProx.size.width*0.8)
                             Spacer() 
                             Button {
-                                isFavorite.toggle()
-                                if isFavorite {
-                                    addActivityToMustTrys()
-                                } else {
-                                    deleteActivityFromMustTry()
-                                }
+//                                isFavorite.toggle()
+//                                if isFavorite {
+//                                    addActivityToMustTrys()
+//                                } else {
+//                                    deleteActivityFromMustTry()
+//                                }
                             } label: {
                                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                                     .foregroundStyle(.white)

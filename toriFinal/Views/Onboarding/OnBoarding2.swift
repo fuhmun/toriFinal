@@ -101,13 +101,13 @@ struct OnBoarding2: View {
                     Text("Next")
                         .font(.system(.title, design: .serif))
                         .foregroundStyle(Color.white)
-                        .frame(width: geometry.size.width/3, height: geometry.size.height/11)
+                        .frame(width: geometry.size.width/2.2, height: geometry.size.height/11)
                         .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
                         .background(RoundedRectangle(cornerRadius: 25.0, style: .continuous)
                             .fill(dietSelected ? Color.blue : Color.red))
                 })
                 .buttonStyle(ScaleButtonStyle())
-                .padding(.vertical)
+                .padding(.bottom, geometry.size.height * 0.05)
                 
             }
             .padding(.top)
@@ -120,9 +120,9 @@ struct OnBoarding2: View {
             Spacer()
             
             //Flattens two dimensional array and creates a new array of strings (names)
-            let selectedDiets = diets.flatMap { $0 }
-                .filter { $0.selected }
-                .map { $0.name }
+//            let selectedDiets = diets.flatMap { $0 }
+//                .filter { $0.selected }
+//                .map { $0.name }
         }
     }
     private func initiateDelayedActions() {

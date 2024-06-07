@@ -167,4 +167,88 @@ class YelpAPI : ObservableObject {
         }
         .resume()
     }
+    
+    func retrieveSuggestions(cat: [String], lim: Int, sort: String, rad: Int, list: RandomCategory) async {
+        
+        let locationDataManager = LocationDataManager()
+        
+        guard let location = locationDataManager.locationManager?.location else {
+            print("Error: Location services are not enabled")
+            return
+        }
+        
+        print("latitude: \(location.coordinate.latitude)")
+        print("longitude: \(location.coordinate.longitude)")
+        
+        var cate: String
+        
+        if (cat.count == 1) {
+            cate = cat.first ?? ""
+        } else {
+            cate = cat.joined(separator: "&categories=")
+        }
+        
+        print(cate)
+        
+        let baseURL = "https://api.yelp.com/v3/businesses/search"
+        
+        let url = URL(string: baseURL)!
+        
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        
+        let queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "latitude", value: String(location.coordinate.latitude)),
+            URLQueryItem(name: "longitude", value: String(location.coordinate.longitude)),
+            URLQueryItem(name: "categories" , value: cate),
+            URLQueryItem(name: "limit" , value: String(lim)),
+            URLQueryItem(name: "radius", value: String(rad)),
+            URLQueryItem(name: "open_now", value: "true")
+        ]
+        
+        components.queryItems = components.queryItems.map {$0 + queryItems} ?? queryItems
+        
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 10
+        request.allHTTPHeaderFields = ["Authorization" : "Bearer \(Constants.APIKey)", "accept": "application/json"]
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            guard let data = data else {
+                print("Error: No data recieved")
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                
+                let json = String(decoding: data, as: UTF8.self)
+                print(json)
+                
+                let response = try decoder.decode(ActivityResponse.self, from: data)
+                
+                if let activites = response.businesses {
+                    DispatchQueue.main.async {
+                        self.foundActivities = activites
+                    }
+                }
+                
+                if let activites = response.businesses, !activites.isEmpty {
+                    for activity in activites {
+                        print("Name: \(activity.name ?? "Not Found")")
+                    }
+                } else {
+                    Task {
+                        await self.retrieveBusiness(cat: [list.activities.randomElement() ?? "food"], lim: 10, sort: "distance", rad: 40000, list: list)
+                    }
+                }
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+        .resume()
+    }
 }

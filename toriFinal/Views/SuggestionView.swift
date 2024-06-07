@@ -14,16 +14,20 @@ import SwiftData
 struct SuggestionView: View {
     
     @State private var selectedCategory: yelpCategories? = .food
-    @State private var suggestedActive: [ActivityRoot] = []
-    @State private var suggestedLeisure: [ActivityRoot] = []
-    @State private var suggestedRelax: [ActivityRoot] = []
-    @State private var suggestedFood: [ActivityRoot] = []
-    @State private var suggestedLocal: [ActivityRoot] = []
-    @State private var suggestedNight: [ActivityRoot] = []
-    @State private var suggestedSearch: [ActivityRoot] = []
+    @ObservedObject private var suggestedActive = YelpAPI()
+    @ObservedObject private var suggestedLeisure = YelpAPI()
+    @ObservedObject private var suggestedRelax = YelpAPI()
+    @ObservedObject private var suggestedFood = YelpAPI()
+    @ObservedObject private var suggestedLocal = YelpAPI()
+    @ObservedObject private var suggestedNight = YelpAPI()
+    @ObservedObject private var suggestedSearch = YelpAPI()
     
     @Environment(\.modelContext) var modelContext
     @Query var userProfile: [Profile]
+    
+    @State private var hasAppeared: Bool = false
+    
+//    @State var searchText: String
     
     var body: some View {
         GeometryReader { geoProx in
@@ -42,19 +46,19 @@ struct SuggestionView: View {
                     ScrollView {
                         Spacer()
                         if selectedCategory == .activeLife {
-                            activeView(geoProx: geoProx, suggestedActive: suggestedActive)
+                            activeView(geoProx: geoProx, suggestedActive: suggestedActive.foundActivities)
                         } else if selectedCategory == .arts {
-                            leisureView(geoProx: geoProx, suggestedLeisure: suggestedLeisure)
+                            leisureView(geoProx: geoProx, suggestedLeisure: suggestedLeisure.foundActivities)
                         } else if selectedCategory == .beauty {
-                            relaxView(geoProx: geoProx, suggestedRelax: suggestedRelax)
+                            relaxView(geoProx: geoProx, suggestedRelax: suggestedRelax.foundActivities)
                         } else if selectedCategory == .food {
-                            foodView(geoProx: geoProx, suggestedFood: suggestedFood)
+                            foodView(geoProx: geoProx, suggestedFood: suggestedFood.foundActivities)
                         } else if selectedCategory == .nightLife {
-                            nightView(geoProx: geoProx, suggestedNight: suggestedNight)
+                            nightView(geoProx: geoProx, suggestedNight: suggestedNight.foundActivities)
                         } else if selectedCategory == .localFlavor {
-                            localView(geoProx: geoProx, suggestedLocal: suggestedLocal)
+                            localView(geoProx: geoProx, suggestedLocal: suggestedLocal.foundActivities)
                         } else {
-                            searchView(geoProx: geoProx,suggestedSearch: suggestedSearch)
+                            searchView(geoProx: geoProx,suggestedSearch: suggestedSearch.foundActivities)
                         }
                         Spacer()
                     }
@@ -66,48 +70,65 @@ struct SuggestionView: View {
         .onChange(of: selectedCategory) {
             fetchActivities(for: selectedCategory)
         }
+        .onAppear {
+            if !hasAppeared {
+                fetchActivities(for: .food)
+                hasAppeared = true
+            }
+        }
     }
     
     func fetchActivities(for category: yelpCategories?) {
         guard let category = category else { return }
         
-        let yelpAPI = YelpAPI()
+        let yelpAPI: YelpAPI
+        
+        switch category {
+        case .activeLife:
+            yelpAPI = suggestedActive
+        case .arts:
+            yelpAPI = suggestedLeisure
+        case .beauty:
+            yelpAPI = suggestedRelax
+        case .food:
+            yelpAPI = suggestedFood
+        case .nightLife:
+            yelpAPI = suggestedNight
+        case .localFlavor:
+            yelpAPI = suggestedLocal
+        default:
+            yelpAPI = suggestedSearch
+        }
         
         Task {
             
-            var topThree: [String] = userProfile.first?.likedCategories.getTopThree(for: category.rawValue) ?? []
+            let topThree: [String] = userProfile.first?.likedCategories.getTopThree(for: category.rawValue) ?? []
             
             guard !topThree.isEmpty else {
-                        print("No categories found for \(category.rawValue)")
-                        return
+                print("No categories found for \(category.rawValue)")
+                return
             }
             
-            await yelpAPI.retrieveBusiness(cat: [topThree[0]], lim: 3, sort: "distance", rad: 40000, list: RandomCategory())
-            DispatchQueue.main.async {
-                print("Fetched \(yelpAPI.foundActivities.count) activities for category \(category.rawValue)")
-                switch category {
-                case .activeLife:
-                    self.suggestedActive = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
-                case .arts:
-                    self.suggestedLeisure = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
-                case .beauty:
-                    self.suggestedRelax = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
-                case .food:
-                    self.suggestedFood = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
-                case .nightLife:
-                    self.suggestedNight = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
-                case .localFlavor:
-                    self.suggestedLocal = yelpAPI.foundActivities.map { ActivityRoot(id: UUID(), activity: swiftActivity(from: $0)) }
+            if let randomCategory = topThree.randomElement() {
+                await yelpAPI.retrieveSuggestions(cat: [randomCategory], lim: 3, sort: "distance", rad: 40000, list: RandomCategory())
+                DispatchQueue.main.async {
+                    print("Fetched \(yelpAPI.foundActivities.count) activities for category \(category.rawValue)")
+                    // No need to map to ActivityRoot here since we're using YelpAPI instances directly
                 }
-                print("Updated suggested activities for \(category.rawValue)")
-                print(suggestedActive)
+            } else {
+                await yelpAPI.retrieveBusiness(cat: [topThree[0]], lim: 3, sort: "distance", rad: 40000, list: RandomCategory())
+                DispatchQueue.main.async {
+                    print("Fetched \(yelpAPI.foundActivities.count) activities for category \(category.rawValue)")
+                    // No need to map to ActivityRoot here since we're using YelpAPI instances directly
+                }
             }
         }
     }
+    
 }
 
-#Preview {
-    SuggestionView()
-}
+//#Preview {
+//    SuggestionView()
+//}
 
 

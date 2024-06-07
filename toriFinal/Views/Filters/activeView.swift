@@ -10,11 +10,11 @@ import SwiftUI
 struct activeView: View {
     
     var geoProx: GeometryProxy
-    var suggestedActive: [ActivityRoot] = []
+    var suggestedActive: [Activity] = []
     
     var body: some View {
         if suggestedActive == [] {
-            Text("None")
+            LoadingView()
         } else {
             StackedCardView(geoProx: geoProx, suggestedCategories: suggestedActive)
         }

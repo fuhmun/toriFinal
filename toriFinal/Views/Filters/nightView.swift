@@ -10,10 +10,14 @@ import SwiftUI
 struct nightView: View {
     
     var geoProx: GeometryProxy
-    var suggestedNight: [ActivityRoot] = []
+    var suggestedNight: [Activity] = []
     
     var body: some View {
-        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedNight)
+        if suggestedNight == [] {
+            LoadingView()
+        } else {
+            StackedCardView(geoProx: geoProx, suggestedCategories: suggestedNight)
+        }
     }
 }
 

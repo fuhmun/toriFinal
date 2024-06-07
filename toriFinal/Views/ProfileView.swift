@@ -22,6 +22,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.selectedImage = image
+//                userProfile.first?.profilePicture = image.jpegData(compressionQuality: 0.8)
             }
             
             parent.presentationMode.wrappedValue.dismiss()
@@ -31,6 +32,9 @@ struct ImagePicker: UIViewControllerRepresentable {
     var sourceType: UIImagePickerController.SourceType
     @Binding var selectedImage: UIImage?
     @Environment(\.presentationMode) var presentationMode
+    
+    @Environment(\.modelContext) var modelContext
+    @Query var userProfile: [Profile]
     
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent: self)

@@ -10,10 +10,14 @@ import SwiftUI
 struct foodView: View {
     
     var geoProx: GeometryProxy
-    var suggestedFood: [ActivityRoot] = []
+    var suggestedFood: [Activity] = []
     
     var body: some View {
-        StackedCardView(geoProx: geoProx, suggestedCategories: suggestedFood)
+        if suggestedFood == [] {
+            LoadingView()
+        } else {
+            StackedCardView(geoProx: geoProx, suggestedCategories: suggestedFood)
+        }
     }
 }
 
